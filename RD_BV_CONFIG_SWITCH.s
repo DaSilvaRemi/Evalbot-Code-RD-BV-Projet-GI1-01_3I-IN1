@@ -34,7 +34,7 @@ __CONFIG_SW
 									; ;;
 									LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
 									LDR R0, [R6]
-									ORR R0, R0, #0x00000008  				;; Enable clock on GPIO D (0x08 == 0b0000 1000) where SWITCH were connected on (0xC0 == 0b0011 0000)
+									ORR R0, R0, #0x08				;; Enable clock on GPIO D (0x08 == 0b0000 1000) where SWITCH were connected on (0xC0 == 0b0011 0000)
 									; ;;														 									        (GPIO::HGFE DCBA)
 									STR R0, [R6]
 
@@ -48,7 +48,8 @@ __CONFIG_SW
 									STR R0, [R6]
 
 									LDR R6, = GPIO_PORT_D_BASE + GPIO_O_DEN	;; Enable Digital Function
-									LDR R0, = BROCHE_D_6_7
+									LDR R0, [R6]
+									ORR R0, R0, #BROCHE_D_6_7
 									STR R0, [R6]
 
 									LDR R11, = GPIO_PORT_D_BASE + (BROCHE_D_6<<2)  ;; @data Register = @base + (mask<<2) ==> SW1
@@ -60,14 +61,14 @@ __CONFIG_SW
 
 ;----------------------------------------READ STATE OF SW1------------------------------------------------;
 __READ_STATE_SW_1
-									LDR R10,[R11]
-									CMP R10,#0x00
+									LDR R10, [R11]
+									CMP R10, #0x00
 									BX LR
 
 ;----------------------------------------READ STATE OF SW2------------------------------------------------;
 __READ_STATE_SW_2
-									LDR R10,[R12]
-									CMP R10,#0x00
+									LDR R10, [R12]
+									CMP R10, #0x00
 									BX LR
 
 									END

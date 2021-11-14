@@ -83,9 +83,9 @@ ARM Macro Assembler    Page 2
                                                             n GPIO D (0x08 == 0
                                                             b0000 1000) where S
                                                             WITCH were connecte
-                                                            d on (0xC0 == 0b001
-                                                            1 0000)
-   38 00000008         ; ;;                                (GPIO::HGFE DCBA)
+                                                            d on (0xC0 == 0b110
+                                                            0 0000)
+   38 00000008         ; ;;              (GPIO::HGFE DCBA)
    39 00000008 6030            STR              R0, [R6]
    40 0000000A         
    41 0000000A         ; ;; "There must be a delay of 3 system clocks before an

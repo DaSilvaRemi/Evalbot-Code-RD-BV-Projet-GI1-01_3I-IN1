@@ -35,7 +35,7 @@ __CONFIG_BUMPER
 						LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
 						LDR R0, [R6]
 						ORR R0, R0, #0x00000010  				;; Enable clock on GPIO E (0x08 == 0b0001 0000) where BUMPER were connected on (0x03 == 0b0000 0011)
-						; ;;														 									        (GPIO::HGFE DCBA)
+						; ;;														 		(GPIO::HGFE DCBA)
 						STR R0, [R6]
 
 						; ;; "There must be a delay of 3 system clocks before any GPIO reg. access  (p413 datasheet de lm3s9B92.pdf)

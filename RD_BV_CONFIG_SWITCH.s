@@ -34,8 +34,8 @@ __CONFIG_SW
 									; ;;
 									LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
 									LDR R0, [R6]
-									ORR R0, R0, #0x08				;; Enable clock on GPIO D (0x08 == 0b0000 1000) where SWITCH were connected on (0xC0 == 0b0011 0000)
-									; ;;														 									        (GPIO::HGFE DCBA)
+									ORR R0, R0, #0x08				;; Enable clock on GPIO D (0x08 == 0b0000 1000) where SWITCH were connected on (0xC0 == 0b1100 0000)
+									; ;;														(GPIO::HGFE DCBA)
 									STR R0, [R6]
 
 									; ;; "There must be a delay of 3 system clocks before any GPIO reg. access  (p413 datasheet de lm3s9B92.pdf)

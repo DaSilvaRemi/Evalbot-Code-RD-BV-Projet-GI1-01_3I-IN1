@@ -4,10 +4,10 @@
 ARM Macro Assembler    Page 1 
 
 
-    1 00000000 00A037A0 
-                       TEMPS_X EQU              0xa037a0
-    2 00000000 00A037A0 
-                       TEMPS_Y EQU              0xa037a0
+    1 00000000 011A49A0 
+                       TEMPS_X EQU              0x11A49A0
+    2 00000000 011A49A0 
+                       TEMPS_Y EQU              0x11A49A0
     3 00000000         
     4 00000000                 AREA             _MAIN_PROGRAM_, CODE, READONLY
     5 00000000                 ENTRY
@@ -117,7 +117,7 @@ ARM Macro Assembler    Page 2
                        -------------------------------------------;
    54 00000000         
    55 00000000         __main
-   56 00000000 F000 F80E       BL               __INIT_START
+   56 00000000 F000 F810       BL               __INIT_START
    57 00000004 F7FF FFFE       BL               __CONFIG_BUMPER
    58 00000008         
    59 00000008         start_while_is_start_wall
@@ -134,166 +134,209 @@ ARM Macro Assembler    Page 2
 ARM Macro Assembler    Page 3 
 
 
-   67 00000014 F000 F82A       BL               __WHILE_IS_NOT_END_WALL
+   67 00000014 F000 F82C       BL               __WHILE_IS_NOT_END_WALL
    68 00000018         
-   69 00000018         
-   70 00000018         sw1
-   71 00000018 F7FF FFFE       BL               __READ_STATE_SW_1
-   72 0000001C D1FC            BNE              sw1
-   73 0000001E         
-   74 0000001E E058            B                end_p
-   75 00000020         
-   76 00000020         ;----------------------------------------END MAIN-------
+   69 00000018 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_OFF
+   70 0000001C         
+   71 0000001C         sw1
+   72 0000001C F7FF FFFE       BL               __READ_STATE_SW_1
+   73 00000020 D1FC            BNE              sw1
+   74 00000022         
+   75 00000022         
+   76 00000022         
+   77 00000022 E06E            B                end_p
+   78 00000024         
+   79 00000024         ;----------------------------------------END MAIN-------
                        -----------------------------------------;
-   77 00000020         
-   78 00000020         ;----------------------------------------START INIT STAR
+   80 00000024         
+   81 00000024         ;----------------------------------------START INIT STAR
                        T------------------------------------------------;
-   79 00000020         
-   80 00000020         __INIT_START
-   81 00000020 E92D 5C41       PUSH             { R0, R6, R10-R12, LR }
    82 00000024         
-   83 00000024 F7FF FFFE       BL               __ENGINE_INIT
-   84 00000028 F7FF FFFE       BL               __CONFIG_SW
-   85 0000002C         
-   86 0000002C         sw2
-   87 0000002C F7FF FFFE       BL               __READ_STATE_SW_2
-   88 00000030 D1FC            BNE              sw2
-   89 00000032         
-   90 00000032 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_ON
-   91 00000036 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
-   92 0000003A         
-   93 0000003A E8BD 9C41       POP              { R0, R6, R10-R12, PC }
-   94 0000003E         
-   95 0000003E         ;----------------------------------------END INIT START-
+   83 00000024         __INIT_START
+   84 00000024 E92D 5C41       PUSH             { R0, R6, R10-R12, LR }
+   85 00000028         
+   86 00000028 F7FF FFFE       BL               __ENGINE_INIT
+   87 0000002C F7FF FFFE       BL               __CONFIG_SW
+   88 00000030         
+   89 00000030         sw2
+   90 00000030 F7FF FFFE       BL               __READ_STATE_SW_2
+   91 00000034 D1FC            BNE              sw2
+   92 00000036         
+   93 00000036 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_ON
+   94 0000003A F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
+   95 0000003E         
+   96 0000003E E8BD 9C41       POP              { R0, R6, R10-R12, PC }
+   97 00000042         
+   98 00000042         ;----------------------------------------END INIT START-
                        -----------------------------------------------;
-   96 0000003E         
-   97 0000003E         ;----------------------------------------START INIT AFTE
+   99 00000042         
+  100 00000042         ;----------------------------------------START INIT AFTE
                        R SW2------------------------------------------------;
-   98 0000003E         
-   99 0000003E         __INIT_AFTER_SW2
-  100 0000003E 4A25            LDR              R2, =TEMPS_X
-  101 00000040 4B24            LDR              R3, =TEMPS_Y
-  102 00000042 F04F 0700       LDR              R7, =2_00000000
-  103 00000046 4770            BX               LR
-  104 00000048         
-  105 00000048         ;----------------------------------------END INIT AFTER 
+  101 00000042         
+  102 00000042         __INIT_AFTER_SW2
+  103 00000042 4A30            LDR              R2, =TEMPS_X
+  104 00000044 4B2F            LDR              R3, =TEMPS_Y
+  105 00000046 F04F 0700       LDR              R7, =2_00000000
+  106 0000004A 4770            BX               LR
+  107 0000004C         
+  108 0000004C         ;----------------------------------------END INIT AFTER 
                        SW2------------------------------------------------;
-  106 00000048         
-  107 00000048         ;----------------------------------------START TURN 90 R
+  109 0000004C         
+  110 0000004C         ;----------------------------------------START TURN 90 R
                        IGHT------------------------------------------------;
-  108 00000048         
-  109 00000048         __TURN_90_RIGHT
-  110 00000048 B543            PUSH             { R0, R1, R6, LR }
-  111 0000004A F7FF FFFE       BL               __ENGINE_LEFT_FRONT_RIGHT_BACK
-  112 0000004E F7FF FFFE       BL               __WAIT_HALF_ROTATION
-  113 00000052 BD43            POP              { R0, R1, R6, PC }
-  114 00000054         
-  115 00000054         ;----------------------------------------END TURN 90 RIG
+  111 0000004C         
+  112 0000004C         __TURN_90_RIGHT
+  113 0000004C B543            PUSH             { R0, R1, R6, LR }
+  114 0000004E F7FF FFFE       BL               __ENGINE_LEFT_FRONT_RIGHT_BACK
+  115 00000052 F7FF FFFE       BL               __WAIT_HALF_ROTATION
+  116 00000056 BD43            POP              { R0, R1, R6, PC }
+  117 00000058         
+  118 00000058         ;----------------------------------------END TURN 90 RIG
                        HT------------------------------------------------;
-  116 00000054         
-  117 00000054         ;----------------------------------------START TURN 90 L
-                       EFT------------------------------------------------;
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-  118 00000054         
-  119 00000054         __TURN_90_LEFT
-  120 00000054 B543            PUSH             { R0, R1, R6, LR }
-  121 00000056 F7FF FFFE       BL               __ENGINE_LEFT_BACK_RIGHT_FRONT
-  122 0000005A F7FF FFFE       BL               __WAIT_HALF_ROTATION
-  123 0000005E BD43            POP              { R0, R1, R6, PC }
-  124 00000060         
-  125 00000060         ;----------------------------------------END TURN 90 LEF
+  119 00000058         
+  120 00000058         ;----------------------------------------START TURN 90 L
+                       EFT------------------------------------------------;
+  121 00000058         
+  122 00000058         __TURN_90_LEFT
+  123 00000058 B543            PUSH             { R0, R1, R6, LR }
+  124 0000005A F7FF FFFE       BL               __ENGINE_LEFT_BACK_RIGHT_FRONT
+  125 0000005E F7FF FFFE       BL               __WAIT_HALF_ROTATION
+  126 00000062 BD43            POP              { R0, R1, R6, PC }
+  127 00000064         
+  128 00000064         ;----------------------------------------END TURN 90 LEF
                        T------------------------------------------------;
-  126 00000060         
-  127 00000060         
-  128 00000060         ;----------------------------------------START TURN_ARRO
+  129 00000064         
+  130 00000064         
+  131 00000064         ;----------------------------------------START TURN_ARRO
                        UND------------------------------------------------;
-  129 00000060         
-  130 00000060         __TURN_ARROUND
-  131 00000060 B543            PUSH             { R0, R1, R6, LR }
-  132 00000062 F7FF FFF1       BL               __TURN_90_RIGHT
-  133 00000066 F7FF FFEF       BL               __TURN_90_RIGHT
-  134 0000006A BD43            POP              { R0, R1, R6, PC }
-  135 0000006C         
-  136 0000006C         ;----------------------------------------END TURN_ARROUN
+  132 00000064         
+  133 00000064         __TURN_ARROUND
+  134 00000064 B543            PUSH             { R0, R1, R6, LR }
+  135 00000066 F7FF FFF1       BL               __TURN_90_RIGHT
+  136 0000006A F7FF FFEF       BL               __TURN_90_RIGHT
+  137 0000006E BD43            POP              { R0, R1, R6, PC }
+  138 00000070         
+  139 00000070         ;----------------------------------------END TURN_ARROUN
                        D------------------------------------------------;
-  137 0000006C         
-  138 0000006C         ;----------------------------------------START WHILE IS 
+  140 00000070         
+  141 00000070         ;----------------------------------------START WHILE IS 
                        NOT END WALL--------------------------------------------
                        ----;
-  139 0000006C         
-  140 0000006C         __WHILE_IS_NOT_END_WALL
-  141 0000006C E92D 5FFF       PUSH             { R0-R12, LR }
-  142 00000070         init_startup_while_var
-  143 00000070 F7FF FFE5       BL               __INIT_AFTER_SW2
-  144 00000074 F04F 0400       LDR              R4, =0
-  145 00000078 F04F 0501       LDR              R5, =2_00000001
-  146 0000007C         
-  147 0000007C         start_while_is_not_end_wall
-  148 0000007C         
-  149 0000007C         move_to_the_left
-  150 0000007C F7FF FFF0       BL               __TURN_ARROUND
-  151 00000080 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
-  152 00000084         
-  153 00000084         wait_to_be_outside_range_Y_DOWN
-  154 00000084 4619            MOV              R1, R3
-  155 00000086 F7FF FFFE       BL               __WAIT_A_TIME
-  156 0000008A         
-  157 0000008A F7FF FFE3       BL               __TURN_90_LEFT
-  158 0000008E F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
-  159 00000092         
-  160 00000092         wait_to_be_outside_range_X
-  161 00000092 4611            MOV              R1, R2
-  162 00000094 F7FF FFFE       BL               __WAIT_A_TIME
-  163 00000098         end_wall_is_bumped
-  164 00000098 F7FF FFFE       BL               __READ_STATE_BUMPER_1
-  165 0000009C D017            BEQ              end_while_is_not_end_wall
-  166 0000009E         
-  167 0000009E F7FF FFFE       BL               __READ_STATE_BUMPER_2
-  168 000000A2 D014            BEQ              end_while_is_not_end_wall
-  169 000000A4         move_to_the_up
-  170 000000A4 F7FF FFD6       BL               __TURN_90_LEFT
-  171 000000A8 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
+  142 00000070         
+  143 00000070         __WHILE_IS_NOT_END_WALL
+  144 00000070 E92D 47FF       PUSH             { R0-R10, LR }
+  145 00000074         init_startup_while_var
+  146 00000074 F7FF FFE5       BL               __INIT_AFTER_SW2
+  147 00000078 F04F 0400       LDR              R4, =0
+  148 0000007C F04F 0501       LDR              R5, =2_00000001
+  149 00000080         
+  150 00000080         start_while_is_not_end_wall
+  151 00000080         
+  152 00000080         move_to_the_left
+  153 00000080 F7FF FFF0       BL               __TURN_ARROUND
+  154 00000084 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
+  155 00000088         
+  156 00000088         wait_to_be_outside_range_Y_DOWN
+  157 00000088 4619            MOV              R1, R3
+  158 0000008A F7FF FFFE       BL               __WAIT_A_TIME
+  159 0000008E         
+  160 0000008E F7FF FFE3       BL               __TURN_90_LEFT
+  161 00000092 F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
+  162 00000096         
+  163 00000096         wait_to_be_outside_range_X
+  164 00000096 4611            MOV              R1, R2
+  165 00000098 F7FF FFFE       BL               __WAIT_A_TIME
+  166 0000009C         end_wall_is_bumped
+  167 0000009C F7FF FFFE       BL               __READ_STATE_BUMPER_1
+  168 000000A0 D017            BEQ              end_while_is_not_end_wall
+  169 000000A2         
+  170 000000A2 F7FF FFFE       BL               __READ_STATE_BUMPER_2
+  171 000000A6 D014            BEQ              end_while_is_not_end_wall
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-  172 000000AC         
-  173 000000AC         wait_to_be_outside_range_Y_UP
-  174 000000AC 4619            MOV              R1, R3
-  175 000000AE F7FF FFFE       BL               __WAIT_A_TIME
-  176 000000B2         
-  177 000000B2         basic_wall_is_bumped
-  178 000000B2 F7FF FFFE       BL               __READ_STATE_BUMPER_1
-  179 000000B6 D003            BEQ              save_1_binary
-  180 000000B8         
-  181 000000B8 F7FF FFFE       BL               __READ_STATE_BUMPER_2
-  182 000000BC D000            BEQ              save_1_binary
-  183 000000BE E001            B                shift_binary_mask
-  184 000000C0         
-  185 000000C0         save_1_binary
-  186 000000C0 EA45 0707       ORR              R7, R5, R7
+  172 000000A8         move_to_the_up
+  173 000000A8 F7FF FFD6       BL               __TURN_90_LEFT
+  174 000000AC F7FF FFFE       BL               __ENGINE_LEFT_RIGHT_FRONT
+  175 000000B0         
+  176 000000B0         wait_to_be_outside_range_Y_UP
+  177 000000B0 4619            MOV              R1, R3
+  178 000000B2 F7FF FFFE       BL               __WAIT_A_TIME
+  179 000000B6         
+  180 000000B6         basic_wall_is_bumped
+  181 000000B6 F7FF FFFE       BL               __READ_STATE_BUMPER_1
+  182 000000BA D003            BEQ              save_1_binary
+  183 000000BC         
+  184 000000BC F7FF FFFE       BL               __READ_STATE_BUMPER_2
+  185 000000C0 D000            BEQ              save_1_binary
+  186 000000C2 E001            B                shift_binary_mask
   187 000000C4         
-  188 000000C4         shift_binary_mask
-  189 000000C4 FA05 F504       LSL              R5, R5, R4
-  190 000000C8 F104 0401       ADD              R4, #1
-  191 000000CC E7D6            B                start_while_is_not_end_wall
-  192 000000CE         
-  193 000000CE         end_while_is_not_end_wall
-  194 000000CE E8BD 9FFF       POP              { R0-R12, PC }
+  188 000000C4         save_1_binary
+  189 000000C4 EA45 0707       ORR              R7, R5, R7
+  190 000000C8         
+  191 000000C8         shift_binary_mask
+  192 000000C8 FA05 F504       LSL              R5, R5, R4
+  193 000000CC F104 0401       ADD              R4, #1
+  194 000000D0 E7D6            B                start_while_is_not_end_wall
   195 000000D2         
-  196 000000D2         ;----------------------------------------END WHILE IS NO
+  196 000000D2         end_while_is_not_end_wall
+  197 000000D2 E8BD 85FF       POP              { R0-R8, R10, PC }
+  198 000000D6         
+  199 000000D6         ;----------------------------------------END WHILE IS NO
                        T END WALL----------------------------------------------
                        --;
-  197 000000D2         end_p
-  198 000000D2                 END
-              00 00 00A037A0 
+  200 000000D6         
+  201 000000D6         ;----------------------------------------START DISPLAY_B
+                       INARY_MSG-----------------------------------------------
+                       -;
+  202 000000D6         
+  203 000000D6         __DISPLAY_BINARY_MSG
+  204 000000D6 B59C            PUSH             { R2-R4, R7, LR }
+  205 000000D8 F04F 0300       LDR              R3, =0
+  206 000000DC         start_while_binary_msg
+  207 000000DC 2B07            CMP              R3, #7
+  208 000000DE D00F            BEQ              end_while_binary_msg
+  209 000000E0         
+  210 000000E0 F007 0201       AND              R2, R7, #2_00000001
+  211 000000E4         
+  212 000000E4 2A01            CMP              R2, #1
+  213 000000E6 BF08 F7FF 
+              FFFE             BLEQ             __SWITCH_ON_LED_1
+  214 000000EC         
+  215 000000EC 2A00            CMP              R2, #0
+  216 000000EE BF08 F7FF 
+              FFFE             BLEQ             __SWITCH_ON_LED_2
+  217 000000F4         
+  218 000000F4 F7FF FFFE       BL               __SWITCH_OFF_LED_1_2
+  219 000000F8         
+  220 000000F8 F103 0301       ADD              R3, #1
+  221 000000FC FA27 F703       LSR              R7, R3
+  222 00000100         
+  223 00000100         end_while_binary_msg
+  224 00000100 BD80            POP              { R7, PC }
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+  225 00000102         
+  226 00000102         ;----------------------------------------END DISPLAY_BIN
+                       ARY_MSG------------------------------------------------;
+                       
+  227 00000102         
+  228 00000102         end_p
+  229 00000102                 END
+              00 00 011A49A0 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_main.d -o.\objects\rd_bv_main.o -I.\RTE\_Target_1 
 -ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\ProgramFiles\A
@@ -314,57 +357,57 @@ Symbol: _MAIN_PROGRAM_
    Uses
       None
 Comment: _MAIN_PROGRAM_ unused
-__INIT_AFTER_SW2 0000003E
+__DISPLAY_BINARY_MSG 000000D6
+
+Symbol: __DISPLAY_BINARY_MSG
+   Definitions
+      At line 203 in file RD_BV_MAIN.s
+   Uses
+      None
+Comment: __DISPLAY_BINARY_MSG unused
+__INIT_AFTER_SW2 00000042
 
 Symbol: __INIT_AFTER_SW2
    Definitions
-      At line 99 in file RD_BV_MAIN.s
+      At line 102 in file RD_BV_MAIN.s
    Uses
-      At line 143 in file RD_BV_MAIN.s
+      At line 146 in file RD_BV_MAIN.s
 Comment: __INIT_AFTER_SW2 used once
-__INIT_START 00000020
+__INIT_START 00000024
 
 Symbol: __INIT_START
    Definitions
-      At line 80 in file RD_BV_MAIN.s
+      At line 83 in file RD_BV_MAIN.s
    Uses
       At line 56 in file RD_BV_MAIN.s
 Comment: __INIT_START used once
-__TURN_90_LEFT 00000054
+__TURN_90_LEFT 00000058
 
 Symbol: __TURN_90_LEFT
    Definitions
-      At line 119 in file RD_BV_MAIN.s
+      At line 122 in file RD_BV_MAIN.s
    Uses
-      At line 157 in file RD_BV_MAIN.s
-      At line 170 in file RD_BV_MAIN.s
+      At line 160 in file RD_BV_MAIN.s
+      At line 173 in file RD_BV_MAIN.s
 
-__TURN_90_RIGHT 00000048
+__TURN_90_RIGHT 0000004C
 
 Symbol: __TURN_90_RIGHT
    Definitions
-      At line 109 in file RD_BV_MAIN.s
+      At line 112 in file RD_BV_MAIN.s
    Uses
-      At line 132 in file RD_BV_MAIN.s
-      At line 133 in file RD_BV_MAIN.s
+      At line 135 in file RD_BV_MAIN.s
+      At line 136 in file RD_BV_MAIN.s
 
-__TURN_ARROUND 00000060
+__TURN_ARROUND 00000064
 
 Symbol: __TURN_ARROUND
    Definitions
-      At line 130 in file RD_BV_MAIN.s
+      At line 133 in file RD_BV_MAIN.s
    Uses
-      At line 150 in file RD_BV_MAIN.s
+      At line 153 in file RD_BV_MAIN.s
 Comment: __TURN_ARROUND used once
-__WHILE_IS_NOT_END_WALL 0000006C
-
-Symbol: __WHILE_IS_NOT_END_WALL
-   Definitions
-      At line 140 in file RD_BV_MAIN.s
-   Uses
-      At line 67 in file RD_BV_MAIN.s
-Comment: __WHILE_IS_NOT_END_WALL used once
-__main 00000000
+__WHILE_IS_NOT_END_WALL 00000070
 
 
 
@@ -372,64 +415,64 @@ ARM Macro Assembler    Page 2 Alphabetic symbol ordering
 Relocatable symbols
 
 
+Symbol: __WHILE_IS_NOT_END_WALL
+   Definitions
+      At line 143 in file RD_BV_MAIN.s
+   Uses
+      At line 67 in file RD_BV_MAIN.s
+Comment: __WHILE_IS_NOT_END_WALL used once
+__main 00000000
+
 Symbol: __main
    Definitions
       At line 55 in file RD_BV_MAIN.s
    Uses
       At line 6 in file RD_BV_MAIN.s
 Comment: __main used once
-basic_wall_is_bumped 000000B2
+basic_wall_is_bumped 000000B6
 
 Symbol: basic_wall_is_bumped
    Definitions
-      At line 177 in file RD_BV_MAIN.s
+      At line 180 in file RD_BV_MAIN.s
    Uses
       None
 Comment: basic_wall_is_bumped unused
-end_p 000000D2
+end_p 00000102
 
 Symbol: end_p
    Definitions
-      At line 197 in file RD_BV_MAIN.s
+      At line 228 in file RD_BV_MAIN.s
    Uses
-      At line 74 in file RD_BV_MAIN.s
+      At line 77 in file RD_BV_MAIN.s
 Comment: end_p used once
-end_wall_is_bumped 00000098
+end_wall_is_bumped 0000009C
 
 Symbol: end_wall_is_bumped
    Definitions
-      At line 163 in file RD_BV_MAIN.s
+      At line 166 in file RD_BV_MAIN.s
    Uses
       None
 Comment: end_wall_is_bumped unused
-end_while_is_not_end_wall 000000CE
+end_while_binary_msg 00000100
+
+Symbol: end_while_binary_msg
+   Definitions
+      At line 223 in file RD_BV_MAIN.s
+   Uses
+      At line 208 in file RD_BV_MAIN.s
+Comment: end_while_binary_msg used once
+end_while_is_not_end_wall 000000D2
 
 Symbol: end_while_is_not_end_wall
    Definitions
-      At line 193 in file RD_BV_MAIN.s
+      At line 196 in file RD_BV_MAIN.s
    Uses
-      At line 165 in file RD_BV_MAIN.s
       At line 168 in file RD_BV_MAIN.s
+      At line 171 in file RD_BV_MAIN.s
 
 end_while_is_start_wall 00000014
 
 Symbol: end_while_is_start_wall
-   Definitions
-      At line 66 in file RD_BV_MAIN.s
-   Uses
-      At line 61 in file RD_BV_MAIN.s
-Comment: end_while_is_start_wall used once
-init_startup_while_var 00000070
-
-Symbol: init_startup_while_var
-   Definitions
-      At line 142 in file RD_BV_MAIN.s
-   Uses
-      None
-Comment: init_startup_while_var unused
-move_to_the_left 0000007C
-
-Symbol: move_to_the_left
 
 
 
@@ -437,42 +480,72 @@ ARM Macro Assembler    Page 3 Alphabetic symbol ordering
 Relocatable symbols
 
    Definitions
-      At line 149 in file RD_BV_MAIN.s
+      At line 66 in file RD_BV_MAIN.s
+   Uses
+      At line 61 in file RD_BV_MAIN.s
+Comment: end_while_is_start_wall used once
+init_startup_while_var 00000074
+
+Symbol: init_startup_while_var
+   Definitions
+      At line 145 in file RD_BV_MAIN.s
+   Uses
+      None
+Comment: init_startup_while_var unused
+move_to_the_left 00000080
+
+Symbol: move_to_the_left
+   Definitions
+      At line 152 in file RD_BV_MAIN.s
    Uses
       None
 Comment: move_to_the_left unused
-move_to_the_up 000000A4
+move_to_the_up 000000A8
 
 Symbol: move_to_the_up
    Definitions
-      At line 169 in file RD_BV_MAIN.s
+      At line 172 in file RD_BV_MAIN.s
    Uses
       None
 Comment: move_to_the_up unused
-save_1_binary 000000C0
+save_1_binary 000000C4
 
 Symbol: save_1_binary
    Definitions
-      At line 185 in file RD_BV_MAIN.s
+      At line 188 in file RD_BV_MAIN.s
    Uses
-      At line 179 in file RD_BV_MAIN.s
       At line 182 in file RD_BV_MAIN.s
+      At line 185 in file RD_BV_MAIN.s
 
-shift_binary_mask 000000C4
+shift_binary_mask 000000C8
 
 Symbol: shift_binary_mask
    Definitions
-      At line 188 in file RD_BV_MAIN.s
+      At line 191 in file RD_BV_MAIN.s
    Uses
-      At line 183 in file RD_BV_MAIN.s
+      At line 186 in file RD_BV_MAIN.s
 Comment: shift_binary_mask used once
-start_while_is_not_end_wall 0000007C
+start_while_binary_msg 000000DC
+
+Symbol: start_while_binary_msg
+   Definitions
+      At line 206 in file RD_BV_MAIN.s
+   Uses
+      None
+Comment: start_while_binary_msg unused
+start_while_is_not_end_wall 00000080
 
 Symbol: start_while_is_not_end_wall
    Definitions
-      At line 147 in file RD_BV_MAIN.s
+      At line 150 in file RD_BV_MAIN.s
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Relocatable symbols
+
    Uses
-      At line 191 in file RD_BV_MAIN.s
+      At line 194 in file RD_BV_MAIN.s
 Comment: start_while_is_not_end_wall used once
 start_while_is_start_wall 00000008
 
@@ -482,74 +555,68 @@ Symbol: start_while_is_start_wall
    Uses
       At line 64 in file RD_BV_MAIN.s
 Comment: start_while_is_start_wall used once
-sw1 00000018
+sw1 0000001C
 
 Symbol: sw1
    Definitions
-      At line 70 in file RD_BV_MAIN.s
+      At line 71 in file RD_BV_MAIN.s
    Uses
-      At line 72 in file RD_BV_MAIN.s
+      At line 73 in file RD_BV_MAIN.s
 Comment: sw1 used once
-sw2 0000002C
+sw2 00000030
 
 Symbol: sw2
    Definitions
-      At line 86 in file RD_BV_MAIN.s
-
-
-
-ARM Macro Assembler    Page 4 Alphabetic symbol ordering
-Relocatable symbols
-
+      At line 89 in file RD_BV_MAIN.s
    Uses
-      At line 88 in file RD_BV_MAIN.s
+      At line 91 in file RD_BV_MAIN.s
 Comment: sw2 used once
-wait_to_be_outside_range_X 00000092
+wait_to_be_outside_range_X 00000096
 
 Symbol: wait_to_be_outside_range_X
    Definitions
-      At line 160 in file RD_BV_MAIN.s
+      At line 163 in file RD_BV_MAIN.s
    Uses
       None
 Comment: wait_to_be_outside_range_X unused
-wait_to_be_outside_range_Y_DOWN 00000084
+wait_to_be_outside_range_Y_DOWN 00000088
 
 Symbol: wait_to_be_outside_range_Y_DOWN
    Definitions
-      At line 153 in file RD_BV_MAIN.s
+      At line 156 in file RD_BV_MAIN.s
    Uses
       None
 Comment: wait_to_be_outside_range_Y_DOWN unused
-wait_to_be_outside_range_Y_UP 000000AC
+wait_to_be_outside_range_Y_UP 000000B0
 
 Symbol: wait_to_be_outside_range_Y_UP
    Definitions
-      At line 173 in file RD_BV_MAIN.s
+      At line 176 in file RD_BV_MAIN.s
    Uses
       None
 Comment: wait_to_be_outside_range_Y_UP unused
-25 symbols
+28 symbols
 
 
 
 ARM Macro Assembler    Page 1 Alphabetic symbol ordering
 Absolute symbols
 
-TEMPS_X 00A037A0
+TEMPS_X 011A49A0
 
 Symbol: TEMPS_X
    Definitions
       At line 1 in file RD_BV_MAIN.s
    Uses
-      At line 100 in file RD_BV_MAIN.s
+      At line 103 in file RD_BV_MAIN.s
 Comment: TEMPS_X used once
-TEMPS_Y 00A037A0
+TEMPS_Y 011A49A0
 
 Symbol: TEMPS_Y
    Definitions
       At line 2 in file RD_BV_MAIN.s
    Uses
-      At line 101 in file RD_BV_MAIN.s
+      At line 104 in file RD_BV_MAIN.s
 Comment: TEMPS_Y used once
 2 symbols
 
@@ -588,7 +655,7 @@ Symbol: __CONFIG_SW
    Definitions
       At line 30 in file RD_BV_MAIN.s
    Uses
-      At line 84 in file RD_BV_MAIN.s
+      At line 87 in file RD_BV_MAIN.s
 Comment: __CONFIG_SW used once
 __ENGINE_INIT 00000000
 
@@ -596,7 +663,7 @@ Symbol: __ENGINE_INIT
    Definitions
       At line 10 in file RD_BV_MAIN.s
    Uses
-      At line 83 in file RD_BV_MAIN.s
+      At line 86 in file RD_BV_MAIN.s
 Comment: __ENGINE_INIT used once
 __ENGINE_LEFT_BACK 00000000
 
@@ -612,7 +679,7 @@ Symbol: __ENGINE_LEFT_BACK_RIGHT_FRONT
    Definitions
       At line 25 in file RD_BV_MAIN.s
    Uses
-      At line 121 in file RD_BV_MAIN.s
+      At line 124 in file RD_BV_MAIN.s
 Comment: __ENGINE_LEFT_BACK_RIGHT_FRONT used once
 __ENGINE_LEFT_FRONT 00000000
 
@@ -634,7 +701,7 @@ Symbol: __ENGINE_LEFT_FRONT_RIGHT_BACK
    Definitions
       At line 26 in file RD_BV_MAIN.s
    Uses
-      At line 111 in file RD_BV_MAIN.s
+      At line 114 in file RD_BV_MAIN.s
 Comment: __ENGINE_LEFT_FRONT_RIGHT_BACK used once
 __ENGINE_LEFT_INVERSE 00000000
 
@@ -674,10 +741,10 @@ Symbol: __ENGINE_LEFT_RIGHT_FRONT
    Definitions
       At line 23 in file RD_BV_MAIN.s
    Uses
-      At line 91 in file RD_BV_MAIN.s
-      At line 151 in file RD_BV_MAIN.s
-      At line 158 in file RD_BV_MAIN.s
-      At line 171 in file RD_BV_MAIN.s
+      At line 94 in file RD_BV_MAIN.s
+      At line 154 in file RD_BV_MAIN.s
+      At line 161 in file RD_BV_MAIN.s
+      At line 174 in file RD_BV_MAIN.s
 
 __ENGINE_LEFT_RIGHT_INVERSE 00000000
 
@@ -699,15 +766,15 @@ Symbol: __ENGINE_LEFT_RIGHT_OFF
    Definitions
       At line 22 in file RD_BV_MAIN.s
    Uses
-      None
-Comment: __ENGINE_LEFT_RIGHT_OFF unused
+      At line 69 in file RD_BV_MAIN.s
+Comment: __ENGINE_LEFT_RIGHT_OFF used once
 __ENGINE_LEFT_RIGHT_ON 00000000
 
 Symbol: __ENGINE_LEFT_RIGHT_ON
    Definitions
       At line 21 in file RD_BV_MAIN.s
    Uses
-      At line 90 in file RD_BV_MAIN.s
+      At line 93 in file RD_BV_MAIN.s
 Comment: __ENGINE_LEFT_RIGHT_ON used once
 __ENGINE_RIGHT_BACK 00000000
 
@@ -762,8 +829,8 @@ Symbol: __READ_STATE_BUMPER_1
       At line 36 in file RD_BV_MAIN.s
    Uses
       At line 60 in file RD_BV_MAIN.s
-      At line 164 in file RD_BV_MAIN.s
-      At line 178 in file RD_BV_MAIN.s
+      At line 167 in file RD_BV_MAIN.s
+      At line 181 in file RD_BV_MAIN.s
 
 __READ_STATE_BUMPER_2 00000000
 
@@ -772,8 +839,8 @@ Symbol: __READ_STATE_BUMPER_2
       At line 37 in file RD_BV_MAIN.s
    Uses
       At line 63 in file RD_BV_MAIN.s
-      At line 167 in file RD_BV_MAIN.s
-      At line 181 in file RD_BV_MAIN.s
+      At line 170 in file RD_BV_MAIN.s
+      At line 184 in file RD_BV_MAIN.s
 
 __READ_STATE_SW_1 00000000
 
@@ -781,7 +848,7 @@ Symbol: __READ_STATE_SW_1
    Definitions
       At line 31 in file RD_BV_MAIN.s
    Uses
-      At line 71 in file RD_BV_MAIN.s
+      At line 72 in file RD_BV_MAIN.s
 Comment: __READ_STATE_SW_1 used once
 __READ_STATE_SW_2 00000000
 
@@ -789,7 +856,7 @@ Symbol: __READ_STATE_SW_2
    Definitions
       At line 32 in file RD_BV_MAIN.s
    Uses
-      At line 87 in file RD_BV_MAIN.s
+      At line 90 in file RD_BV_MAIN.s
 Comment: __READ_STATE_SW_2 used once
 __SWITCH_OFF_LED_1 00000000
 
@@ -805,8 +872,8 @@ Symbol: __SWITCH_OFF_LED_1_2
    Definitions
       At line 46 in file RD_BV_MAIN.s
    Uses
-      None
-Comment: __SWITCH_OFF_LED_1_2 unused
+      At line 218 in file RD_BV_MAIN.s
+Comment: __SWITCH_OFF_LED_1_2 used once
 __SWITCH_OFF_LED_2 00000000
 
 Symbol: __SWITCH_OFF_LED_2
@@ -827,8 +894,8 @@ Symbol: __SWITCH_ON_LED_1
    Definitions
       At line 41 in file RD_BV_MAIN.s
    Uses
-      None
-Comment: __SWITCH_ON_LED_1 unused
+      At line 213 in file RD_BV_MAIN.s
+Comment: __SWITCH_ON_LED_1 used once
 __SWITCH_ON_LED_1_2 00000000
 
 Symbol: __SWITCH_ON_LED_1_2
@@ -843,17 +910,17 @@ Symbol: __SWITCH_ON_LED_2
    Definitions
       At line 42 in file RD_BV_MAIN.s
    Uses
-      None
-Comment: __SWITCH_ON_LED_2 unused
+      At line 216 in file RD_BV_MAIN.s
+Comment: __SWITCH_ON_LED_2 used once
 __WAIT_A_TIME 00000000
 
 Symbol: __WAIT_A_TIME
    Definitions
       At line 51 in file RD_BV_MAIN.s
    Uses
-      At line 155 in file RD_BV_MAIN.s
-      At line 162 in file RD_BV_MAIN.s
-      At line 175 in file RD_BV_MAIN.s
+      At line 158 in file RD_BV_MAIN.s
+      At line 165 in file RD_BV_MAIN.s
+      At line 178 in file RD_BV_MAIN.s
 
 __WAIT_HALF_ROTATION 00000000
 
@@ -861,8 +928,8 @@ Symbol: __WAIT_HALF_ROTATION
    Definitions
       At line 50 in file RD_BV_MAIN.s
    Uses
-      At line 112 in file RD_BV_MAIN.s
-      At line 122 in file RD_BV_MAIN.s
+      At line 115 in file RD_BV_MAIN.s
+      At line 125 in file RD_BV_MAIN.s
 
 34 symbols
-397 symbols in table
+400 symbols in table

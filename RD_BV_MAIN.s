@@ -197,11 +197,15 @@ end_while_is_not_end_wall
 									POP { R0-R8, R10, PC }
 
 ;----------------------------------------END WHILE IS NOT END WALL------------------------------------------------;
+
+;----------------------------------------START DISPLAY_BINARY_MSG------------------------------------------------;
+
 __DISPLAY_BINARY_MSG
-									PUSH { R7, LR }
+									PUSH { R2-R4, R7, LR }
 									LDR R3, =0
-start_while
-									CMP
+start_while_binary_msg
+									CMP R3, #7
+									BEQ end_while_binary_msg
 
 									AND R2, R7, #2_00000001
 
@@ -211,13 +215,16 @@ start_while
 									CMP R2, #0
 									BLEQ __SWITCH_ON_LED_2
 
-									__SWITCH_OFF_LED_1_2
+									BL __SWITCH_OFF_LED_1_2
 
 									ADD R3, #1
 									LSR R7, R3
 
-end_while
+end_while_binary_msg
 									POP { R7, PC }
+									
+;----------------------------------------END DISPLAY_BINARY_MSG------------------------------------------------;
+
 end_p
 									END
 									NOP

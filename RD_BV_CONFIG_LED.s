@@ -48,8 +48,8 @@ __CONFIG_LED
 								; ;; Enable the Port F & E peripheral clock 		(p291 datasheet de lm3s9B96.pdf)
 								LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
 								LDR R0, [R6]
-								ORR R0, R0, #0x00000020  				;; Enable clock on GPIO F (0x08 == 0b0010 0000) where LED were connected on (0x03 == 0b0011 0000)
-								; ;;														 									        (GPIO::HGFE DCBA)
+								ORR R0, R0, #0x00000020  				;; Enable clock on GPIO F (0x20 == 0b0010 0000) where LED were connected on (0x30 == 0b0011 0000)
+								; ;;														 		(GPIO::HGFE DCBA)
 								STR R0, [R6]
 
 								; ;; "There must be a delay of 3 system clocks before any GPIO reg. access  (p413 datasheet de lm3s9B92.pdf)

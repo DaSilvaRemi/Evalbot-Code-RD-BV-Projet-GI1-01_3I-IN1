@@ -1,5 +1,5 @@
-TEMPS_X EQU 0xa037a0
-TEMPS_Y EQU 0xa037a0
+TEMPS_X EQU 0x11A49A0
+TEMPS_Y EQU 0x11A49A0
 
 									AREA    _MAIN_PROGRAM_, CODE, READONLY
 									ENTRY
@@ -49,7 +49,7 @@ TEMPS_Y EQU 0xa037a0
 									;----------------------TOOLS-----------------;
 									IMPORT __WAIT_HALF_ROTATION
 									IMPORT __WAIT_A_TIME
-										
+
 ;----------------------------------------START MAIN------------------------------------------------;
 
 __main
@@ -66,11 +66,14 @@ start_while_is_start_wall
 end_while_is_start_wall
 									BL __WHILE_IS_NOT_END_WALL
 
+									BL __ENGINE_LEFT_RIGHT_OFF
 
 sw1
 									BL __READ_STATE_SW_1
 									BNE sw1
-									
+
+
+
 									B end_p
 
 ;----------------------------------------END MAIN------------------------------------------------;
@@ -91,7 +94,7 @@ sw2
 									BL __ENGINE_LEFT_RIGHT_FRONT
 
 									POP { R0, R6, R10-R12, PC }
-									
+
 ;----------------------------------------END INIT START------------------------------------------------;
 
 ;----------------------------------------START INIT AFTER SW2------------------------------------------------;
@@ -99,9 +102,9 @@ sw2
 __INIT_AFTER_SW2
 									LDR R2, =TEMPS_X
 									LDR R3, =TEMPS_Y
-									LDR R7, =2_00000000	
+									LDR R7, =2_00000000
 									BX LR
-									
+
 ;----------------------------------------END INIT AFTER SW2------------------------------------------------;
 
 ;----------------------------------------START TURN 90 RIGHT------------------------------------------------;
@@ -111,7 +114,7 @@ __TURN_90_RIGHT
 									BL __ENGINE_LEFT_FRONT_RIGHT_BACK
 									BL __WAIT_HALF_ROTATION
 									POP { R0, R1, R6, PC }
-								
+
 ;----------------------------------------END TURN 90 RIGHT------------------------------------------------;
 
 ;----------------------------------------START TURN 90 LEFT------------------------------------------------;
@@ -121,7 +124,7 @@ __TURN_90_LEFT
 									BL __ENGINE_LEFT_BACK_RIGHT_FRONT
 									BL __WAIT_HALF_ROTATION
 									POP { R0, R1, R6, PC }
-									
+
 ;----------------------------------------END TURN 90 LEFT------------------------------------------------;
 
 
@@ -132,14 +135,14 @@ __TURN_ARROUND
 									BL __TURN_90_RIGHT
 									BL __TURN_90_RIGHT
 									POP { R0, R1, R6, PC }
-									
+
 ;----------------------------------------END TURN_ARROUND------------------------------------------------;
-		
+
 ;----------------------------------------START WHILE IS NOT END WALL------------------------------------------------;
 
-__WHILE_IS_NOT_END_WALL				
-									PUSH { R0-R12, LR }
-init_startup_while_var				
+__WHILE_IS_NOT_END_WALL
+									PUSH { R0-R10, LR }
+init_startup_while_var
 									BL __INIT_AFTER_SW2
 									LDR R4, =0
 									LDR R5, =2_00000001
@@ -149,51 +152,72 @@ start_while_is_not_end_wall
 move_to_the_left
 									BL __TURN_ARROUND
 									BL __ENGINE_LEFT_RIGHT_FRONT
-									
-wait_to_be_outside_range_Y_DOWN							
+
+wait_to_be_outside_range_Y_DOWN
 									MOV R1, R3
 									BL __WAIT_A_TIME
-									
+
 									BL __TURN_90_LEFT
 									BL __ENGINE_LEFT_RIGHT_FRONT
-									
+
 wait_to_be_outside_range_X
 									MOV R1, R2
 									BL __WAIT_A_TIME
-end_wall_is_bumped									
+end_wall_is_bumped
 									BL __READ_STATE_BUMPER_1
 									BEQ end_while_is_not_end_wall
 
 									BL __READ_STATE_BUMPER_2
 									BEQ end_while_is_not_end_wall
-move_to_the_up									
+move_to_the_up
 									BL __TURN_90_LEFT
 									BL __ENGINE_LEFT_RIGHT_FRONT
-									
-wait_to_be_outside_range_Y_UP							
+
+wait_to_be_outside_range_Y_UP
 									MOV R1, R3
 									BL __WAIT_A_TIME
 
-basic_wall_is_bumped	
+basic_wall_is_bumped
 									BL __READ_STATE_BUMPER_1
 									BEQ save_1_binary
 
 									BL __READ_STATE_BUMPER_2
 									BEQ save_1_binary
 									B shift_binary_mask
-									
-save_1_binary						
+
+save_1_binary
 									ORR  R7, R5, R7
 
 shift_binary_mask
 									LSL  R5, R5, R4
 									ADD R4, #1
 									B start_while_is_not_end_wall
-									
+
 end_while_is_not_end_wall
-									POP { R0-R12, PC }
+									POP { R0-R8, R10, PC }
 
 ;----------------------------------------END WHILE IS NOT END WALL------------------------------------------------;
+__DISPLAY_BINARY_MSG
+									PUSH { R7, LR }
+									LDR R3, =0
+start_while
+									CMP
+
+									AND R2, R7, #2_00000001
+
+									CMP R2, #1
+									BLEQ __SWITCH_ON_LED_1
+
+									CMP R2, #0
+									BLEQ __SWITCH_ON_LED_2
+
+									__SWITCH_OFF_LED_1_2
+
+									ADD R3, #1
+									LSR R7, R3
+
+end_while
+									POP { R7, PC }
 end_p
 									END
 									NOP

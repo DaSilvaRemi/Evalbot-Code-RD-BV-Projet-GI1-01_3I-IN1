@@ -49,8 +49,8 @@ __CONFIG_BUMPER
 						LDR R6, = GPIO_PORT_E_BASE+GPIO_O_DEN	;; ENABLE DIGITAL FUNCTION
 						LDR R0, = BROCHE_E_0_1
 						STR R0, [R6]
-						LDR R7, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
-						LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
+						LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
+						LDR R9, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
 
 						BX LR
 
@@ -58,13 +58,13 @@ __CONFIG_BUMPER
 
 ;----------------------------------------READ STATE OF BUMPER LEFT------------------------------------------------;
 __READ_STATE_BUMPER_1
-						LDR R10, [R7]
+						LDR R10, [R8]
 						CMP R10, #0x00
 						BX LR
 
 ;----------------------------------------READ STATE OF BUMPER RIGHT------------------------------------------------;
 __READ_STATE_BUMPER_2
-						LDR R10, [R8]
+						LDR R10, [R9]
 						CMP R10, #0x00
 						BX LR
 

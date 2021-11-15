@@ -74,64 +74,81 @@ __CONFIG_LED
 								BX LR
 ;----------------------------------------END LED CONFIGURATION------------------------------------------------;
 
+;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED WITH AND OPERATOR------------------------------------------------;
+__SET_VAL_DATA_REGISTER_AND
+								PUSH {R2, R4, LR}
+								
+								AND R2, R4
+								BL __SET_VAL_DATA_REGISTER
+								
+								POP {R2, R4, PC}
+								
+;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED WITH ORR OPERATOR------------------------------------------------;
+__SET_VAL_DATA_REGISTER_ORR
+								PUSH {R2, R4, LR}
+								
+								ORR R2, R4
+								BL __SET_VAL_DATA_REGISTER
+								
+								POP {R2, R4, PC}
+								
 ;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED------------------------------------------------;
 __SET_VAL_DATA_REGISTER
-								AND R2, R4
 								STR R2, [R4]
 								BX LR
 
 ;----------------------------------------SWITCH ON LED 1------------------------------------------------;
 __SWITCH_ON_LED_1
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_4		;; SWITCH ON LED portF broche 4 : 0b00010000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_ORR
+								POP {R2, R4, PC}
 
 ;----------------------------------------SWITCH ON LED 2------------------------------------------------;
 __SWITCH_ON_LED_2
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_5		;; SWITCH ON portF broche 5 : 0b00100000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_ORR
+								POP {R2, R4, PC}
 
 ;----------------------------------------SWITCH ON LED 1 & 2------------------------------------------------;
 __SWITCH_ON_LED_1_2
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_4_5		;; SWITCH ON portF broche 4 & 5 : 0b00110000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_ORR
+								POP {R2, R4, PC}
 
 ;----------------------------------------SWITCH OFF LED 1------------------------------------------------;
 __SWITCH_OFF_LED_1
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #SHUTDOWN_MASK_LED_1 ;; SWITCH OFF LED portF broche 4 : 0b00010000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_AND
+								POP {R2, R4, PC}
 
 ;----------------------------------------SWITCH OFF LED 2------------------------------------------------;
 __SWITCH_OFF_LED_2
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #SHUTDOWN_MASK_LED_2 ;; SWITCH OFF LED portF broche 5 : 0b00100000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_AND
+								POP {R2, R4, PC}
 
 ;----------------------------------------SWITCH OFF LED 1 & é------------------------------------------------;
 __SWITCH_OFF_LED_1_2
-								PUSH {R2-R4, LR}
+								PUSH {R2, R4, LR}
 								MOV R2, #SHUTDOWN_MASK_LED_1_2 ;; SWITCH OFF LED portF broche 4 & 5 : 0b00110000
-								BL __SET_VAL_DATA_REGISTER
-								POP {R2-R4, PC}
+								BL __SET_VAL_DATA_REGISTER_AND
+								POP {R2, R4, PC}
 
 
 ;----------------------------------------BLINK LED 1 & 2------------------------------------------------;
 __BLINK_LED_1_2
-								PUSH {R1-R4, LR}
+								PUSH {R1, R2, R4, LR}
 								BL __SWITCH_ON_LED_1_2
 								BL __SWITCH_OFF_LED_1_2
 								BL __WAIT
 								BL __SWITCH_ON_LED_1_2
 								BL __WAIT
 								BL __SWITCH_OFF_LED_1_2
-								POP {R1-R4, LR}
+								POP {R1, R2, R4, PC}
 
 								END

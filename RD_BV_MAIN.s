@@ -45,6 +45,10 @@ TEMPS_Y EQU 0x11A49A0
 									IMPORT __SWITCH_OFF_LED_2 ;Switch off LED2
 									IMPORT __SWITCH_OFF_LED_1_2 ;Switch off LED1 1 & 2
 									IMPORT __BLINK_LED_1_2 ;Blink LED 1 & 2
+										
+									;----------------------TOOLS-----------------;
+									IMPORT __CONFIG_0LED
+									IMPORT __DISPLAY_BYTE_DATA
 
 									;----------------------TOOLS-----------------;
 									IMPORT __WAIT_HALF_ROTATION
@@ -201,7 +205,8 @@ end_while_is_not_end_wall
 ;----------------------------------------START DISPLAY_BINARY_MSG------------------------------------------------;
 
 __DISPLAY_BINARY_MSG
-									PUSH { R2-R4, R7, LR }
+									PUSH { R0-R4, R6, R7, LR }
+									
 									LDR R3, =0
 start_while_binary_msg
 									CMP R3, #7
@@ -221,7 +226,11 @@ start_while_binary_msg
 									LSR R7, R3
 
 end_while_binary_msg
-									POP { R7, PC }
+
+									BL __CONFIG_0LED
+									BL __DISPLAY_BYTE_DATA
+
+									POP { R0-R4, R6, R7, PC }
 									
 ;----------------------------------------END DISPLAY_BINARY_MSG------------------------------------------------;
 

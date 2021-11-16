@@ -7,10 +7,10 @@ ARM Macro Assembler    Page 1
     1 00000000 002FFFFF 
                        WAITING_BASE_TIME
                                EQU              0x002FFFFF
-    2 00000000 011A49A0 
+    2 00000000 010C8DFF 
                        WAITING_HALF_ROTATION_TIME
-                               EQU              0x11A49A0
-    3 00000000         ;;0x5B8D80 
+                               EQU              0x10C8DFF
+    3 00000000         ;;0x11A49A0 
     4 00000000                 AREA             _WAIT_, CODE, READONLY
     5 00000000                 ENTRY
     6 00000000         
@@ -42,7 +42,7 @@ ARM Macro Assembler    Page 1
    28 0000001A         
    29 0000001A                 END
               00 00 002FFFFF 
-              011A49A0 
+              010C8DFF 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_wait.d -o.\objects\rd_bv_wait.o -I.\RTE\_Target_1 
 -ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\ProgramFiles\A
@@ -112,7 +112,7 @@ Symbol: WAITING_BASE_TIME
    Uses
       At line 13 in file RD_BV_WAIT.S
 Comment: WAITING_BASE_TIME used once
-WAITING_HALF_ROTATION_TIME 011A49A0
+WAITING_HALF_ROTATION_TIME 010C8DFF
 
 Symbol: WAITING_HALF_ROTATION_TIME
    Definitions

@@ -1,4 +1,4 @@
-TEMPS_X EQU 0x11A49A0
+TEMPS_X EQU 0x121EAC0
 TEMPS_Y EQU 0x11A49A0
 
 									AREA    _MAIN_PROGRAM_, CODE, READONLY
@@ -46,11 +46,12 @@ TEMPS_Y EQU 0x11A49A0
 									IMPORT __SWITCH_OFF_LED_1_2 ;Switch off LED1 1 & 2
 									IMPORT __BLINK_LED_1_2 ;Blink LED 1 & 2
 										
-									;----------------------TOOLS-----------------;
+									;----------------------OLED-----------------;
 									IMPORT __CONFIG_0LED
 									IMPORT __DISPLAY_BYTE_DATA
 
 									;----------------------TOOLS-----------------;
+									IMPORT __WAIT
 									IMPORT __WAIT_HALF_ROTATION
 									IMPORT __WAIT_A_TIME
 
@@ -71,14 +72,15 @@ end_while_is_start_wall
 									BL __WHILE_IS_NOT_END_WALL
 
 									BL __ENGINE_LEFT_RIGHT_OFF
-
+									BL __CONFIG_SW
+									BL __CONFIG_LED
 sw1
 									BL __READ_STATE_SW_1
 									BNE sw1
 
+									BL __DISPLAY_BINARY_MSG
 
-
-									B end_p
+						 			B sw1
 
 ;----------------------------------------END MAIN------------------------------------------------;
 
@@ -153,15 +155,16 @@ init_startup_while_var
 
 start_while_is_not_end_wall
 
-move_to_the_left
-									BL __TURN_ARROUND
-									BL __ENGINE_LEFT_RIGHT_FRONT
+									BL __ENGINE_LEFT_RIGHT_BACK
+									;BL __TURN_ARROUND
+									;BL __ENGINE_LEFT_RIGHT_FRONT
 
 wait_to_be_outside_range_Y_DOWN
 									MOV R1, R3
 									BL __WAIT_A_TIME
-
-									BL __TURN_90_LEFT
+									
+move_to_the_right
+									BL __TURN_90_RIGHT
 									BL __ENGINE_LEFT_RIGHT_FRONT
 
 wait_to_be_outside_range_X
@@ -198,7 +201,7 @@ shift_binary_mask
 									B start_while_is_not_end_wall
 
 end_while_is_not_end_wall
-									POP { R0-R8, R10, PC }
+									POP { R0-R10, PC }
 
 ;----------------------------------------END WHILE IS NOT END WALL------------------------------------------------;
 
@@ -215,20 +218,25 @@ start_while_binary_msg
 									AND R2, R7, #2_00000001
 
 									CMP R2, #1
-									BLEQ __SWITCH_ON_LED_1
+									BEQ display_1
 
 									CMP R2, #0
-									BLEQ __SWITCH_ON_LED_2
+									BEQ display_0
 
+display_1
+									BL __SWITCH_ON_LED_1
+									B end_display
+		
+display_0		
+									BL __SWITCH_ON_LED_2
+end_display
+									BL __WAIT
 									BL __SWITCH_OFF_LED_1_2
 
 									ADD R3, #1
 									LSR R7, R3
-
+									B start_while_binary_msg
 end_while_binary_msg
-
-									BL __CONFIG_0LED
-									BL __DISPLAY_BYTE_DATA
 
 									POP { R0-R4, R6, R7, PC }
 									

@@ -412,11 +412,6 @@
               <FileType>2</FileType>
               <FilePath>.\RD_BV_WAIT.S</FilePath>
             </File>
-            <File>
-              <FileName>RD_BV_CONFIG_OLED.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\RD_BV_CONFIG_OLED.s</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

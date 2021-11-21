@@ -53,7 +53,7 @@ __CONFIG_0LED
 										; ;; Enable the Port G peripheral clock 	(p1261 & 291 datasheet de lm3s9B96.pdf)
 										LDR R6, =SYSCTL_RCGC2_R  			;; RCGC2
 										LDR R0, [R6]
-										ORR R0, R0, #0x00000060  			;; Enable clock on GPIO G & F (0x40 == 0b0110 0000) where OLED were connected on (0x03 == 0b0000 0011)
+										ORR R0, R0, #0x60  			;; Enable clock on GPIO G (0x40 == 0b0100 0000) where OLED were connected on (0x03 == 0b0000 0011)
 										; ;;														(GPIO::HGFE DCBA)					
 										STR R0, [R6]
 
@@ -64,17 +64,23 @@ __CONFIG_0LED
 								
 										;Follow (p803 datasheet de lm3s9B92.pdf) for make this configuration
 										;----------------------------------------GPIO CONFIGURATION-----------------------;
-								
-										LDR R6, =GPIO_PORT_G_BASE+GPIO_AFSEL	;;Enable port G broche 1 et 2: 0000 0011)
-										LDR R0, =BROCHE_G_0_1
-										STR R0, [R6]
+																		
+										;Alternate Function Select (AFSEL) (p 426), PE2 et PE3 use QEI so Alternate funct
+										;;so PE2 et PE3 = 1
+										;LDR R6, = GPIO_PORT_G_BASE+GPIO_AFSEL
+										;ORR R0, R6, #0x03
+										;STR R0, [R6]
+										
+										LDR R6, =0x00
 
+										;;GPIO Open Drain Select (GPIOODR) (p431)
 										LDR R6, =GPIO_PORT_G_BASE+GPIO_O_DR    ;; Enable the I2C pins for open-drain operation
-										LDR R0, =BROCHE_G_0_1
+										LDR R0, =0x01
 										STR R0, [R6]
 
+										;;GPIO Port Control (GPIOPCTL) (p444)
 										LDR R6, =GPIO_PORT_G_BASE+GPIO_0_PCTL	;; Configure PORT
-										LDR R0, =BROCHE_G_0_1
+										LDR R0, =0x03 ;Switch on I2C on Port G0 & G1 with put 1 on the third bit
 										STR R0, [R6]
 								
 										;----------------------------------------I2C CONFIGURATION-----------------------;
@@ -90,7 +96,6 @@ __CONFIG_0LED
 										LDR R6, =I2C_1+I2C_M_SA ;; Set the number of system clock periods in one SCL clock period 
 										LDR R0, =0x00000076
 										STR R0, [R6]
-
 
 										BX LR
 ;----------------------------------------END OLED CONFIGURATION------------------------------------------------;

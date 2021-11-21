@@ -47,8 +47,8 @@ TEMPS_Y EQU 0x11A49A0
 									IMPORT __BLINK_LED_1_2 ;Blink LED 1 & 2
 										
 									;----------------------OLED-----------------;
-									IMPORT __CONFIG_0LED
-									IMPORT __DISPLAY_BYTE_DATA
+									;IMPORT __CONFIG_0LED
+									;IMPORT __DISPLAY_BYTE_DATA
 
 									;----------------------TOOLS-----------------;
 									IMPORT __WAIT
@@ -59,6 +59,7 @@ TEMPS_Y EQU 0x11A49A0
 
 __main
 									BL __INIT_START
+									
 									BL __CONFIG_BUMPER
 
 start_while_is_start_wall

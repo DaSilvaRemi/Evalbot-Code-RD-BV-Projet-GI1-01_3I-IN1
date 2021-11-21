@@ -5,7 +5,6 @@ Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
 Section Cross References
 
     rd_bv_config_led.o(_CONFIG_LED_) refers to rd_bv_wait.o(_WAIT_) for __WAIT
-    rd_bv_main.o(_MAIN_PROGRAM_) refers (Special) to rd_bv_config_oled.o(_CONFIG_OLED_) for __CONFIG_0LED
     rd_bv_main.o(_MAIN_PROGRAM_) refers (Special) to rd_bv_config_moteur.o(_CONFIG_ENGINE_) for __ENGINE_LEFT_BACK
     rd_bv_main.o(_MAIN_PROGRAM_) refers to rd_bv_config_bumper.o(_CONFIG_BUMPER_) for __CONFIG_BUMPER
     rd_bv_main.o(_MAIN_PROGRAM_) refers to rd_bv_config_switch.o(_CONFIG_SWITCH_) for __CONFIG_SW
@@ -49,7 +48,6 @@ Image Symbol Table
     RD_BV_CONFIG_BUMPER.s                    0x00000000   Number         0  rd_bv_config_bumper.o ABSOLUTE
     RD_BV_CONFIG_LED.s                       0x00000000   Number         0  rd_bv_config_led.o ABSOLUTE
     RD_BV_CONFIG_MOTEUR.s                    0x00000000   Number         0  rd_bv_config_moteur.o ABSOLUTE
-    RD_BV_CONFIG_OLED.s                      0x00000000   Number         0  rd_bv_config_oled.o ABSOLUTE
     RD_BV_CONFIG_SWITCH.s                    0x00000000   Number         0  rd_bv_config_switch.o ABSOLUTE
     RD_BV_MAIN.s                             0x00000000   Number         0  rd_bv_main.o ABSOLUTE
     RD_BV_WAIT.S                             0x00000000   Number         0  rd_bv_wait.o ABSOLUTE
@@ -60,13 +58,12 @@ Image Symbol Table
     .text                                    0x000003c0   Section       56  startup_armcm3.o(.text)
     .text                                    0x000003f8   Section        0  heapauxi.o(.text)
     _CONFIG_BUMPER_                          0x00000400   Section       84  rd_bv_config_bumper.o(_CONFIG_BUMPER_)
-    _CONFIG_ENGINE_                          0x00000454   Section      568  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    _CONFIG_LED_                             0x0000068c   Section      192  rd_bv_config_led.o(_CONFIG_LED_)
-    _CONFIG_OLED_                            0x0000074c   Section      152  rd_bv_config_oled.o(_CONFIG_OLED_)
-    _CONFIG_SWITCH_                          0x000007e4   Section       84  rd_bv_config_switch.o(_CONFIG_SWITCH_)
-    _MAIN_PROGRAM_                           0x00000838   Section      284  rd_bv_main.o(_MAIN_PROGRAM_)
-    _WAIT_                                   0x00000954   Section       36  rd_bv_wait.o(_WAIT_)
-    i.SystemInit                             0x00000978   Section        0  system_armcm3.o(i.SystemInit)
+    _CONFIG_ENGINE_                          0x00000454   Section      600  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    _CONFIG_LED_                             0x000006ac   Section      192  rd_bv_config_led.o(_CONFIG_LED_)
+    _CONFIG_SWITCH_                          0x0000076c   Section       84  rd_bv_config_switch.o(_CONFIG_SWITCH_)
+    _MAIN_PROGRAM_                           0x000007c0   Section      284  rd_bv_main.o(_MAIN_PROGRAM_)
+    _WAIT_                                   0x000008dc   Section       36  rd_bv_wait.o(_WAIT_)
+    i.SystemInit                             0x00000900   Section        0  system_armcm3.o(i.SystemInit)
     .data                                    0x20000000   Section        4  system_armcm3.o(.data)
     STACK                                    0x20000008   Section     1024  startup_armcm3.o(STACK)
 
@@ -105,41 +102,39 @@ Image Symbol Table
     __READ_STATE_BUMPER_1                    0x0000042b   Thumb Code     0  rd_bv_config_bumper.o(_CONFIG_BUMPER_)
     __READ_STATE_BUMPER_2                    0x00000435   Thumb Code     0  rd_bv_config_bumper.o(_CONFIG_BUMPER_)
     __ENGINE_INIT                            0x00000455   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_RIGHT_ON                        0x00000559   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_RIGHT_OFF                       0x00000565   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_ON                         0x00000571   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_OFF                        0x0000057d   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_RIGHT_ON                   0x00000589   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_RIGHT_OFF                  0x00000595   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_RIGHT_BACK                      0x000005a1   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_RIGHT_FRONT                     0x000005ab   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_BACK                       0x000005b5   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_FRONT                      0x000005bf   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_RIGHT_INVERSE                   0x000005c9   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_INVERSE                    0x000005d5   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_RIGHT_FRONT                0x000005e1   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_RIGHT_BACK                 0x000005ed   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_FRONT_RIGHT_BACK           0x000005f9   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_BACK_RIGHT_FRONT           0x00000605   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __ENGINE_LEFT_RIGHT_INVERSE              0x00000611   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
-    __CONFIG_LED                             0x0000068d   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_ON_LED_1                        0x000006d5   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_ON_LED_2                        0x000006e1   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_ON_LED_1_2                      0x000006ed   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_OFF_LED_1                       0x000006f9   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_OFF_LED_2                       0x00000705   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __SWITCH_OFF_LED_1_2                     0x00000711   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __BLINK_LED_1_2                          0x0000071d   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
-    __CONFIG_0LED                            0x0000074d   Thumb Code     0  rd_bv_config_oled.o(_CONFIG_OLED_)
-    __DISPLAY_BYTE_DATA                      0x00000799   Thumb Code     0  rd_bv_config_oled.o(_CONFIG_OLED_)
-    __CONFIG_SW                              0x000007e5   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
-    __READ_STATE_SW_1                        0x00000811   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
-    __READ_STATE_SW_2                        0x0000081b   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
-    __main                                   0x00000839   Thumb Code     0  rd_bv_main.o(_MAIN_PROGRAM_)
-    __WAIT                                   0x00000955   Thumb Code     0  rd_bv_wait.o(_WAIT_)
-    __WAIT_HALF_ROTATION                     0x0000095f   Thumb Code     0  rd_bv_wait.o(_WAIT_)
-    __WAIT_A_TIME                            0x00000969   Thumb Code     0  rd_bv_wait.o(_WAIT_)
-    SystemInit                               0x00000979   Thumb Code    14  system_armcm3.o(i.SystemInit)
+    __ENGINE_RIGHT_ON                        0x00000575   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_RIGHT_OFF                       0x00000581   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_ON                         0x0000058d   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_OFF                        0x00000599   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_RIGHT_ON                   0x000005a5   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_RIGHT_OFF                  0x000005b1   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_RIGHT_BACK                      0x000005bd   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_RIGHT_FRONT                     0x000005c7   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_BACK                       0x000005d1   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_FRONT                      0x000005db   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_RIGHT_INVERSE                   0x000005e5   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_INVERSE                    0x000005f1   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_RIGHT_FRONT                0x000005fd   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_RIGHT_BACK                 0x00000609   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_FRONT_RIGHT_BACK           0x00000615   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_BACK_RIGHT_FRONT           0x00000621   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __ENGINE_LEFT_RIGHT_INVERSE              0x0000062d   Thumb Code     0  rd_bv_config_moteur.o(_CONFIG_ENGINE_)
+    __CONFIG_LED                             0x000006ad   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_ON_LED_1                        0x000006f5   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_ON_LED_2                        0x00000701   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_ON_LED_1_2                      0x0000070d   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_OFF_LED_1                       0x00000719   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_OFF_LED_2                       0x00000725   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __SWITCH_OFF_LED_1_2                     0x00000731   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __BLINK_LED_1_2                          0x0000073d   Thumb Code     0  rd_bv_config_led.o(_CONFIG_LED_)
+    __CONFIG_SW                              0x0000076d   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
+    __READ_STATE_SW_1                        0x00000799   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
+    __READ_STATE_SW_2                        0x000007a3   Thumb Code     0  rd_bv_config_switch.o(_CONFIG_SWITCH_)
+    __main                                   0x000007c1   Thumb Code     0  rd_bv_main.o(_MAIN_PROGRAM_)
+    __WAIT                                   0x000008dd   Thumb Code     0  rd_bv_wait.o(_WAIT_)
+    __WAIT_HALF_ROTATION                     0x000008e7   Thumb Code     0  rd_bv_wait.o(_WAIT_)
+    __WAIT_A_TIME                            0x000008f1   Thumb Code     0  rd_bv_wait.o(_WAIT_)
+    SystemInit                               0x00000901   Thumb Code    14  system_armcm3.o(i.SystemInit)
     SystemCoreClock                          0x20000000   Data           4  system_armcm3.o(.data)
     __stack_limit                            0x20000008   Data           0  startup_armcm3.o(STACK)
     __initial_sp                             0x20000408   Data           0  startup_armcm3.o(STACK)
@@ -152,39 +147,38 @@ Memory Map of the image
 
   Image Entry point : 0x000003c1
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x0000099c, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000924, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000998, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000920, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000003c0   Data   RO           26    RESET               startup_armcm3.o
-    0x000003c0   0x000003c0   0x00000038   Code   RO           27  * .text               startup_armcm3.o
-    0x000003f8   0x000003f8   0x00000006   Code   RO           93    .text               c_w.l(heapauxi.o)
+    0x00000000   0x00000000   0x000003c0   Data   RO           23    RESET               startup_armcm3.o
+    0x000003c0   0x000003c0   0x00000038   Code   RO           24  * .text               startup_armcm3.o
+    0x000003f8   0x000003f8   0x00000006   Code   RO           90    .text               c_w.l(heapauxi.o)
     0x000003fe   0x000003fe   0x00000002   PAD
     0x00000400   0x00000400   0x00000054   Code   RO           12  * _CONFIG_BUMPER_     rd_bv_config_bumper.o
-    0x00000454   0x00000454   0x00000238   Code   RO           15  * _CONFIG_ENGINE_     rd_bv_config_moteur.o
-    0x0000068c   0x0000068c   0x000000c0   Code   RO            1  * _CONFIG_LED_        rd_bv_config_led.o
-    0x0000074c   0x0000074c   0x00000098   Code   RO           21  * _CONFIG_OLED_       rd_bv_config_oled.o
-    0x000007e4   0x000007e4   0x00000054   Code   RO            6  * _CONFIG_SWITCH_     rd_bv_config_switch.o
-    0x00000838   0x00000838   0x0000011c   Code   RO            9  * _MAIN_PROGRAM_      rd_bv_main.o
-    0x00000954   0x00000954   0x00000024   Code   RO           18  * _WAIT_              rd_bv_wait.o
-    0x00000978   0x00000978   0x00000020   Code   RO           35    i.SystemInit        system_armcm3.o
+    0x00000454   0x00000454   0x00000258   Code   RO           15  * _CONFIG_ENGINE_     rd_bv_config_moteur.o
+    0x000006ac   0x000006ac   0x000000c0   Code   RO            1  * _CONFIG_LED_        rd_bv_config_led.o
+    0x0000076c   0x0000076c   0x00000054   Code   RO            6  * _CONFIG_SWITCH_     rd_bv_config_switch.o
+    0x000007c0   0x000007c0   0x0000011c   Code   RO            9  * _MAIN_PROGRAM_      rd_bv_main.o
+    0x000008dc   0x000008dc   0x00000024   Code   RO           18  * _WAIT_              rd_bv_wait.o
+    0x00000900   0x00000900   0x00000020   Code   RO           32    i.SystemInit        system_armcm3.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00000998, Size: 0x00000004, Max: 0xffffffff, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x20000000   0x00000998   0x00000004   Data   RW           36    .data               system_armcm3.o
-
-
-    Execution Region ER_ZI (Exec base: 0x20000004, Load base: 0x0000099c, Size: 0x00000404, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00000920, Size: 0x00000004, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000004   0x0000099c   0x00000004   PAD
-    0x20000008        -       0x00000400   Zero   RW           24    STACK               startup_armcm3.o
+    0x20000000   0x00000920   0x00000004   Data   RW           33    .data               system_armcm3.o
+
+
+    Execution Region ER_ZI (Exec base: 0x20000004, Load base: 0x00000924, Size: 0x00000404, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000004   0x00000924   0x00000004   PAD
+    0x20000008        -       0x00000400   Zero   RW           21    STACK               startup_armcm3.o
 
 
 ==============================================================================
@@ -196,8 +190,7 @@ Image component sizes
 
         84         22          0          0          0        308   rd_bv_config_bumper.o
        192         20          0          0          0        372   rd_bv_config_led.o
-       568        112          0          0          0        468   rd_bv_config_moteur.o
-       152         36          0          0          0        328   rd_bv_config_oled.o
+       600        116          0          0          0        484   rd_bv_config_moteur.o
         84         20          0          0          0        312   rd_bv_config_switch.o
        284         10          0          0          0        364   rd_bv_main.o
         36         10          0          0          0        276   rd_bv_wait.o
@@ -205,7 +198,7 @@ Image component sizes
         32         18          0          4          0       5291   system_armcm3.o
 
     ----------------------------------------------------------------------
-      1488        258        960          4       1028       8935   Object Totals
+      1368        226        960          4       1028       8623   Object Totals
          0          0          0          0          0          0   (incl. Generated)
          0          0          0          0          4          0   (incl. Padding)
 
@@ -235,15 +228,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1496        258        960          4       1028       9087   Grand Totals
-      1496        258        960          4       1028       9087   ELF Image Totals
-      1496        258        960          4          0          0   ROM Totals
+      1376        226        960          4       1028       8775   Grand Totals
+      1376        226        960          4       1028       8775   ELF Image Totals
+      1376        226        960          4          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 2456 (   2.40kB)
+    Total RO  Size (Code + RO Data)                 2336 (   2.28kB)
     Total RW  Size (RW Data + ZI Data)              1032 (   1.01kB)
-    Total ROM Size (Code + RO Data + RW Data)       2460 (   2.40kB)
+    Total ROM Size (Code + RO Data + RW Data)       2340 (   2.29kB)
 
 ==============================================================================
 

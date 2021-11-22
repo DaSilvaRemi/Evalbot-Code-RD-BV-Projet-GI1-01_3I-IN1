@@ -11,7 +11,7 @@ SYSCTL_RCGC2_R	EQU	0x400FE108	; SYSCTL_RCGC2_R (p291 datasheet de lm3s9b92.pdf)
 	
 ;----------------------------------------GPIO VAR-----------------------;
 
-GPIO_PORT_G_BASE EQU 0x4005E000
+GPIO_PORT_G_BASE EQU 0x40026000
 	
 GPIO_AFSEL EQU 0X420 ;GPIO Alternate Function Select (p426 datasheet de lm3s9b92.pdf)
 	
@@ -67,9 +67,9 @@ __CONFIG_0LED
 																		
 										;Alternate Function Select (AFSEL) (p 426), PE2 et PE3 use QEI so Alternate funct
 										;;so PE2 et PE3 = 1
-										;LDR R6, = GPIO_PORT_G_BASE+GPIO_AFSEL
-										;ORR R0, R6, #0x03
-										;STR R0, [R6]
+										LDR R6, = GPIO_PORT_G_BASE+GPIO_AFSEL
+										ORR R0, R6, #0x03
+										STR R0, [R6]
 										
 										LDR R6, =0x00
 
@@ -103,10 +103,10 @@ __CONFIG_0LED
 ;----------------------------------------START DISPLAY BYTE DATA CONFIGURATION------------------------------------------------;
 
 __DISPLAY_BYTE_DATA						
-										LDR R6, =I2C_1+I2C_M_CR ;;Prepare data to be transmitted
+										LDR R6, =I2C_0+I2C_M_CR ;;Prepare data to be transmitted
 										STR R2, [R6]
 								
-										LDR R6, =I2C_1+I2C_M_CS ;;Initiate a single byte transmit of data from Master to Slave
+										LDR R6, =I2C_0+I2C_M_CS ;;Initiate a single byte transmit of data from Master to Slave
 										LDR R0, =0X00000007
 										STR R2, [R6]
 										

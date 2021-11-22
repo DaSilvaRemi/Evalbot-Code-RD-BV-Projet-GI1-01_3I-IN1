@@ -58,8 +58,9 @@ TEMPS_Y EQU 0x11A49A0
 ;----------------------------------------START MAIN------------------------------------------------;
 
 __main
+									BL __CONFIG_0LED
+									BL __WAIT
 									BL __INIT_START
-									
 									BL __CONFIG_BUMPER
 
 start_while_is_start_wall

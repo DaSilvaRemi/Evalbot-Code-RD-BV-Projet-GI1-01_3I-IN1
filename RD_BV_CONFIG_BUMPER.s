@@ -31,41 +31,57 @@ BROCHE_E_0_1			EQU 	0x03		; Bumper Right/Right
 ;----------------------------------------START BUMPER CONFIGURATION------------------------------------------------;
 __CONFIG_BUMPER
 											; ;; Enable the Port E peripheral clock 	(p291 datasheet de lm3s9B96.pdf)
-						; ;;
-						LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
-						LDR R0, [R6]
-						ORR R0, R0, #0x00000010  				;; Enable clock on GPIO E (0x08 == 0b0001 0000) where BUMPER were connected on (0x03 == 0b0000 0011)
-						; ;;														 		(GPIO::HGFE DCBA)
-						STR R0, [R6]
+							; ;;
+							LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
+							LDR R0, [R6]
+							ORR R0, R0, #0x00000010  				;; Enable clock on GPIO E (0x08 == 0b0001 0000) where BUMPER were connected on (0x03 == 0b0000 0011)
+							; ;;														 		(GPIO::HGFE DCBA)
+							STR R0, [R6]
 
-						; ;; "There must be a delay of 3 system clocks before any GPIO reg. access  (p413 datasheet de lm3s9B92.pdf)
-						NOP
-						NOP
-						NOP
-						LDR R6, = GPIO_PORT_E_BASE+GPIO_I_PUR	;; PULL_UP
-						LDR R0, = BROCHE_E_0_1
-						STR R0, [R6]
+							; ;; "There must be a delay of 3 system clocks before any GPIO reg. access  (p413 datasheet de lm3s9B92.pdf)
+							NOP
+							NOP
+							NOP
+							LDR R6, = GPIO_PORT_E_BASE+GPIO_I_PUR	;; PULL_UP
+							LDR R0, = BROCHE_E_0_1
+							STR R0, [R6]
 
-						LDR R6, = GPIO_PORT_E_BASE+GPIO_O_DEN	;; ENABLE DIGITAL FUNCTION
-						LDR R0, = BROCHE_E_0_1
-						STR R0, [R6]
-						LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
-						LDR R9, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
+							LDR R6, = GPIO_PORT_E_BASE+GPIO_O_DEN	;; ENABLE DIGITAL FUNCTION
+							LDR R0, = BROCHE_E_0_1
+							STR R0, [R6]
 
-						BX LR
+							BX LR
+
+;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
+
+;----------------------------------------START BUMPER CONFIGURATION------------------------------------------------;
+__CONFIG_BUMPER1_REGISTER
+							LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
+							BX LR
+
+;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
+
+;----------------------------------------START BUMPER CONFIGURATION------------------------------------------------;
+__CONFIG_BUMPER2_REGISTER
+							LDR R9, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
+
+							BX LR
 
 ;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
 
 ;----------------------------------------READ STATE OF BUMPER LEFT------------------------------------------------;
 __READ_STATE_BUMPER_1
-						LDR R10, [R8]
-						CMP R10, #0x00
-						BX LR
+							PUSH { R8, R10, LR}
+							LDR R10, [R8]
+							CMP R10, #0x00
+							POP { R8, R10, LR}
 
 ;----------------------------------------READ STATE OF BUMPER RIGHT------------------------------------------------;
 __READ_STATE_BUMPER_2
-						LDR R10, [R9]
-						CMP R10, #0x00
-						BX LR
+							PUSH { R9, R10, LR}
+							BL __CONFIG_BUMPER2_REGISTER
+							LDR R10, [R9]
+							CMP R10, #0x00
+							POP { R8, R10, LR}
 
-						END
+							END

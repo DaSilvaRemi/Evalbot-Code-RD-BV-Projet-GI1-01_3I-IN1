@@ -5,7 +5,6 @@
 ".\objects\rd_bv_config_bumper.o"
 ".\objects\rd_bv_config_moteur.o"
 ".\objects\rd_bv_wait.o"
-".\objects\rd_bv_config_oled.o"
 ".\objects\startup_armcm3.o"
 ".\objects\system_armcm3.o"
 --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

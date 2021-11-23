@@ -69,15 +69,21 @@ __CONFIG_LED
 								LDR R0, = BROCHE_F_4_5
 								STR R0, [R6]
 
-								LDR R4, = GPIO_PORT_F_BASE + (BROCHE_F_4_5<<2)  ;; @data Register = @base + (mask<<2) ==> LED1
-
 								BX LR
 ;----------------------------------------END LED CONFIGURATION------------------------------------------------;
+
+;----------------------------------------START LED CONFIGURATION------------------------------------------------;
+__CONFIG_LED_REGISTER
+								LDR R4, = GPIO_PORT_F_BASE + (BROCHE_F_4_5<<2)  ;; @data Register = @base + (mask<<2) ==> LED1
+								BX LR
+;----------------------------------------END LED CONFIGURATION------------------------------------------------;
+
 
 ;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED WITH AND OPERATOR------------------------------------------------;
 __SET_VAL_DATA_REGISTER_AND
 								PUSH {R2, R4, LR}
 								
+								BL __CONFIG_LED_REGISTER
 								AND R2, R4
 								BL __SET_VAL_DATA_REGISTER
 								
@@ -86,7 +92,7 @@ __SET_VAL_DATA_REGISTER_AND
 ;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED WITH ORR OPERATOR------------------------------------------------;
 __SET_VAL_DATA_REGISTER_ORR
 								PUSH {R2, R4, LR}
-								
+								BL __CONFIG_LED_REGISTER
 								ORR R2, R4
 								BL __SET_VAL_DATA_REGISTER
 								

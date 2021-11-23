@@ -45,10 +45,6 @@ TEMPS_Y EQU 0x11A49A0
 									IMPORT __SWITCH_OFF_LED_2 ;Switch off LED2
 									IMPORT __SWITCH_OFF_LED_1_2 ;Switch off LED1 1 & 2
 									IMPORT __BLINK_LED_1_2 ;Blink LED 1 & 2
-										
-									;----------------------OLED-----------------;
-									;IMPORT __CONFIG_0LED
-									;IMPORT __DISPLAY_BYTE_DATA
 
 									;----------------------TOOLS-----------------;
 									IMPORT __WAIT
@@ -58,29 +54,38 @@ TEMPS_Y EQU 0x11A49A0
 ;----------------------------------------START MAIN------------------------------------------------;
 
 __main
-									BL __CONFIG_0LED
-									BL __WAIT
-									BL __INIT_START
-									BL __CONFIG_BUMPER
+									BL __ENGINE_INIT
+									BL __ENGINE_LEFT_RIGHT_ON
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __TURN_90_LEFT
+									BL __ENGINE_LEFT_RIGHT_OFF
+									;BL __INIT_START
+									;BL __CONFIG_BUMPER
 
 start_while_is_start_wall
-									BL __READ_STATE_BUMPER_1
-									BEQ end_while_is_start_wall
+									;BL __READ_STATE_BUMPER_1
+									;BEQ end_while_is_start_wall
 
-									BL __READ_STATE_BUMPER_2
-									BNE start_while_is_start_wall
+									;BL __READ_STATE_BUMPER_2
+									;BNE start_while_is_start_wall
 
 end_while_is_start_wall
-									BL __WHILE_IS_NOT_END_WALL
+									;BL __WHILE_IS_NOT_END_WALL
 
-									BL __ENGINE_LEFT_RIGHT_OFF
-									BL __CONFIG_SW
-									BL __CONFIG_LED
+									;BL __ENGINE_LEFT_RIGHT_OFF
+									;BL __CONFIG_SW
+									;BL __CONFIG_LED
 sw1
-									BL __READ_STATE_SW_1
-									BNE sw1
+									;BL __READ_STATE_SW_1
+									;BNE sw1
 
-									BL __DISPLAY_BINARY_MSG
+									;BL __DISPLAY_BINARY_MSG
 
 						 			B sw1
 

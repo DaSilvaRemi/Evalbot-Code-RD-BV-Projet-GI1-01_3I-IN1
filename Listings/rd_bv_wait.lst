@@ -7,9 +7,9 @@ ARM Macro Assembler    Page 1
     1 00000000 002FFFFF 
                        WAITING_BASE_TIME
                                EQU              0x002FFFFF
-    2 00000000 010C8DFF 
+    2 00000000 010B0760 
                        WAITING_HALF_ROTATION_TIME
-                               EQU              0x10C8DFF
+                               EQU              0x10B0760
     3 00000000         ;;0x11A49A0 
     4 00000000                 AREA             _WAIT_, CODE, READONLY
     5 00000000                 ENTRY
@@ -42,13 +42,13 @@ ARM Macro Assembler    Page 1
    28 0000001A         
    29 0000001A                 END
               00 00 002FFFFF 
-              010C8DFF 
+              010B0760 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_wait.d -o.\objects\rd_bv_wait.o -I.\RTE\_Target_1 
--ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\ProgramFiles\A
-rmv52\ARM\CMSIS\5.5.1\Device\ARM\ARMCM3\Include --predefine="__EVAL SETA 1" --p
-redefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="A
-RMCM3 SETA 1" --list=.\listings\rd_bv_wait.lst RD_BV_WAIT.S
+-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\
+ARM\CMSIS\5.4.0\Device\ARM\ARMCM3\Include --predefine="__EVAL SETA 1" --predefi
+ne="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --predefine="ARMCM3 
+SETA 1" --list=.\listings\rd_bv_wait.lst RD_BV_WAIT.S
 
 
 
@@ -112,7 +112,7 @@ Symbol: WAITING_BASE_TIME
    Uses
       At line 13 in file RD_BV_WAIT.S
 Comment: WAITING_BASE_TIME used once
-WAITING_HALF_ROTATION_TIME 010C8DFF
+WAITING_HALF_ROTATION_TIME 010B0760
 
 Symbol: WAITING_HALF_ROTATION_TIME
    Definitions

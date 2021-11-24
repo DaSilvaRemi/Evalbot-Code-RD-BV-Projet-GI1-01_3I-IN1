@@ -22,7 +22,6 @@ GPIO_7		EQU		0x80
 
 ;; pour enable clock    0x400FE000
 SYSCTL_RCGC0	EQU		0x400FE100		;SYSCTL_RCGC0: offset 0x100 (p271 datasheet de lm3s9b92.pdf)
-SYSCTL_RCGC1  	EQU 	0X400FE104		;SYSCTL_RCGC1: offset 0x100 (p279 datasheet de lm3s9b92.pdf)
 SYSCTL_RCGC2	EQU		0x400FE108		;SYSCTL_RCGC2: offset 0x108 (p291 datasheet de lm3s9b92.pdf)
 
 ;; General-Purpose Input/Outputs (GPIO) configuration
@@ -70,16 +69,9 @@ PWM1CMPB			EQU		PWM_BASE+0x09C
 PWM1GENA			EQU		PWM_BASE+0x0A0
 PWM1GENB			EQU		PWM_BASE+0x0A4
 
-;;Quadrature Encoder Interface (QEI) configuration (p1204)
-QEI_0				EQU		0x4002C000
-QEI_1				EQU		0x4002D000
-
-PortE_R_QEI_A		EQU  GPIO_2 ;(0000 0100)
-PortE_L_QEI_A		EQU  GPIO_3 ;(0000 1000)
-PortE_LR_QEI_A		EQU  GPIO_2+GPIO_3 ;(0000 1100)
-
 ;0x1A2
-VITESSE				EQU		0x192	; Valeures plus petites => Vitesse plus rapide exemple 0x192
+VITESSE				EQU		0x100	
+								; Valeures plus petites => Vitesse plus rapide exemple 0x192
 								; Valeures plus grANDes => Vitesse moins rapide exemple 0x1B2
 
 
@@ -112,19 +104,6 @@ __ENGINE_INIT
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x00100000  ;;bit 20 = PWM recoit clock: ON (p271)
 									STR R0, [R6]
-									
-									NOP
-									NOP
-									NOP
-									
-									LDR R6, =SYSCTL_RCGC1
-									LDR	R0, [R6]
-									ORR	R0, R0, #0x00000100  ;;bit 04 = QEI recoit clock: ON (p1209)
-									STR R0, [R6]
-									
-									NOP
-									NOP
-									NOP
 
 									;ROM_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);PWM clock is processor clock /1
 									;Je ne fais rien car par defaut = OK!!
@@ -134,27 +113,11 @@ __ENGINE_INIT
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x08  ;; Enable port D GPIO
 									STR R0, [R6]
-									
-									NOP
-									NOP
-									NOP
-
 
 									;MOT2 : RCGC2 :  Enable port H GPIO  (2eme ENGINEs)
 									LDR R6, = SYSCTL_RCGC2
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x80  ;; Enable port H GPIO
-									STR R0, [R6]
-									
-									NOP
-									NOP
-									NOP
-
-
-									;RCGC2 :  Enable port E GPIO  (QEI (p1204))
-									LDR R6, = SYSCTL_RCGC2
-									LDR	R0, [R6]
-									ORR	R0, R0, #0x10  ;; Enable port E GPIO :(0001 0000) / (HGFE DCBA)
 									STR R0, [R6]
 
 									NOP
@@ -174,12 +137,6 @@ __ENGINE_INIT
 									LDR R6, = GPIOPCTL_H
 									MOV	R0, #0x02
 									STR R0, [R6]
-									
-									;;In port E GPIOPCTL(p444), We need the PHA0 and PHB0 set in PORT E 2 & 3
-									;We need to put mux = 4 to have PE0=PHA0 & PE1=PHA1
-									LDR R6, = GPIOPCTL_E
-									MOV R0, #0x04
-									STR R0, [R6]
 
 									;;Alternate Function Select (p 426), PD0 utilise alernate fonction (PWM au dessus)
 									;;donc PD0 = 1
@@ -193,13 +150,6 @@ __ENGINE_INIT
 									LDR R6, =GPIOAFSEL_H
 									LDR	R0, [R6] 	  ;*(int *)(0x40007000+0x00000420)= *(int *)(0x40007000+0x00000420) | 0x00000001;
 									ORR	R0, R0, #0x01 ;
-									STR R0, [R6]
-
-									;Alternate Function Select (p 426), PE2 et PE3 utilise QEI so Alternate funct
-									;;donc PE2 et PE3 = 1
-									LDR R6, =GPIOAFSEL_E
-									LDR R0, [R6]
-									ORR R0, #0x01
 									STR R0, [R6]
 
 									;;-----------PWM0 pour ENGINE 1 connect� � PD0
@@ -316,28 +266,6 @@ __ENGINE_INIT
 									LDR	R6, =(GPIODATA_H +(GPIO_1<<2))
 									MOV	R0, #0x02
 									STR	R0,[R6]
-									
-									;;InfraLed Configuration
-									
-									LDR R6, =GPIODIR_E    ;; 1 Pin du portF en sortie (broche 4 et 5 : 00110000)
-									LDR R0, [R6]
-									ORR R0, #GPIO_6
-									STR R0, [R6]
-
-									LDR R6, =GPIODEN_E	;; Enable Digital Function
-									LDR R0, [R6]
-									ORR R0, #GPIO_6
-									STR R0, [R6]
-
-									LDR R6, =GPIODR2R_E	;; Choix de l'intensite de sortie (2mA)
-									LDR R0, [R6]
-									ORR R0, #GPIO_6
-									STR R0, [R6]
-									
-									LDR R4, =GPIO_PORT_E_BASE + (GPIO_6<<2)  ;; @data Register = @base + (mask<<2) ==> LED1
-									MOV R2, #GPIO_6
-									ORR R2, R4
-									STR	R2, [R4]
 
 									BX	LR	; FIN du sous programme d'init.
 

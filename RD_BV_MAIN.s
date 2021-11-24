@@ -1,5 +1,5 @@
-TEMPS_X EQU 0x121EAC0
-TEMPS_Y EQU 0x11A49A0
+TEMPS_X EQU 0x90f560
+TEMPS_Y EQU 0x469268
 
 									AREA    _MAIN_PROGRAM_, CODE, READONLY
 									ENTRY
@@ -54,38 +54,27 @@ TEMPS_Y EQU 0x11A49A0
 ;----------------------------------------START MAIN------------------------------------------------;
 
 __main
-									BL __ENGINE_INIT
-									BL __ENGINE_LEFT_RIGHT_ON
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __TURN_90_LEFT
-									BL __ENGINE_LEFT_RIGHT_OFF
-									;BL __INIT_START
-									;BL __CONFIG_BUMPER
+									BL __INIT_START
+									BL __CONFIG_BUMPER
 
 start_while_is_start_wall
-									;BL __READ_STATE_BUMPER_1
-									;BEQ end_while_is_start_wall
+									BL __READ_STATE_BUMPER_1
+									BEQ end_while_is_start_wall
 
-									;BL __READ_STATE_BUMPER_2
-									;BNE start_while_is_start_wall
+									BL __READ_STATE_BUMPER_2
+									BNE start_while_is_start_wall
 
 end_while_is_start_wall
-									;BL __WHILE_IS_NOT_END_WALL
+									BL __WHILE_IS_NOT_END_WALL
 
-									;BL __ENGINE_LEFT_RIGHT_OFF
-									;BL __CONFIG_SW
-									;BL __CONFIG_LED
+									BL __ENGINE_LEFT_RIGHT_OFF
+									BL __CONFIG_SW
+									BL __CONFIG_LED
 sw1
-									;BL __READ_STATE_SW_1
-									;BNE sw1
+									BL __READ_STATE_SW_1
+									BNE sw1
 
-									;BL __DISPLAY_BINARY_MSG
+									BL __DISPLAY_BINARY_MSG
 
 						 			B sw1
 
@@ -154,7 +143,7 @@ __TURN_ARROUND
 ;----------------------------------------START WHILE IS NOT END WALL------------------------------------------------;
 
 __WHILE_IS_NOT_END_WALL
-									PUSH { R0-R10, LR }
+									PUSH { R0-R6, R8-R10, LR }
 init_startup_while_var
 									BL __INIT_AFTER_SW2
 									LDR R4, =0
@@ -203,12 +192,11 @@ save_1_binary
 									ORR  R7, R5, R7
 
 shift_binary_mask
-									LSL  R5, R5, R4
-									ADD R4, #1
+									LSL  R5, #1
 									B start_while_is_not_end_wall
 
 end_while_is_not_end_wall
-									POP { R0-R10, PC }
+									POP { R0-R6, R8-R10, PC }
 
 ;----------------------------------------END WHILE IS NOT END WALL------------------------------------------------;
 
@@ -219,7 +207,7 @@ __DISPLAY_BINARY_MSG
 									
 									LDR R3, =0
 start_while_binary_msg
-									CMP R3, #7
+									CMP R3, #8
 									BEQ end_while_binary_msg
 
 									AND R2, R7, #2_00000001
@@ -231,17 +219,18 @@ start_while_binary_msg
 									BEQ display_0
 
 display_1
-									BL __SWITCH_ON_LED_1
+									BL __SWITCH_ON_LED_2
 									B end_display
 		
 display_0		
-									BL __SWITCH_ON_LED_2
+									BL __SWITCH_ON_LED_1
 end_display
 									BL __WAIT
 									BL __SWITCH_OFF_LED_1_2
 
 									ADD R3, #1
-									LSR R7, R3
+									LSR R7, #1
+									BL __WAIT
 									B start_while_binary_msg
 end_while_binary_msg
 

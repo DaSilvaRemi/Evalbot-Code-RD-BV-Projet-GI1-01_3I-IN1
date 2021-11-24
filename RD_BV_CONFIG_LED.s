@@ -98,26 +98,26 @@ __SET_VAL_DATA_REGISTER_ORR
 								
 								POP {R2, R4, PC}
 								
-;----------------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED------------------------------------------------;
+;----------------------------------SET VALUE OF R4 REGISTER WHERE LED WAS CONFIGURED---------------------;
 __SET_VAL_DATA_REGISTER
 								STR R2, [R4]
 								BX LR
 
-;----------------------------------------SWITCH ON LED 1------------------------------------------------;
+;----------------------------------------SWITCH ON LED 1-------------------------------------------------;
 __SWITCH_ON_LED_1
 								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_4		;; SWITCH ON LED portF broche 4 : 0b00010000
 								BL __SET_VAL_DATA_REGISTER_ORR
 								POP {R2, R4, PC}
 
-;----------------------------------------SWITCH ON LED 2------------------------------------------------;
+;----------------------------------------SWITCH ON LED 2-------------------------------------------------;
 __SWITCH_ON_LED_2
 								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_5		;; SWITCH ON portF broche 5 : 0b00100000
 								BL __SET_VAL_DATA_REGISTER_ORR
 								POP {R2, R4, PC}
 
-;----------------------------------------SWITCH ON LED 1 & 2------------------------------------------------;
+;----------------------------------------SWITCH ON LED 1 & 2---------------------------------------------;
 __SWITCH_ON_LED_1_2
 								PUSH {R2, R4, LR}
 								MOV R2, #BROCHE_F_4_5		;; SWITCH ON portF broche 4 & 5 : 0b00110000
@@ -138,7 +138,7 @@ __SWITCH_OFF_LED_2
 								BL __SET_VAL_DATA_REGISTER_AND
 								POP {R2, R4, PC}
 
-;----------------------------------------SWITCH OFF LED 1 & é------------------------------------------------;
+;----------------------------------------SWITCH OFF LED 1 & é--------------------------------------------;
 __SWITCH_OFF_LED_1_2
 								PUSH {R2, R4, LR}
 								MOV R2, #SHUTDOWN_MASK_LED_1_2 ;; SWITCH OFF LED portF broche 4 & 5 : 0b00110000
@@ -146,7 +146,7 @@ __SWITCH_OFF_LED_1_2
 								POP {R2, R4, PC}
 
 
-;----------------------------------------BLINK LED 1 & 2------------------------------------------------;
+;----------------------------------------BLINK LED 1 & 2-------------------------------------------------;
 __BLINK_LED_1_2
 								PUSH {R1, R2, R4, LR}
 								BL __SWITCH_ON_LED_1_2

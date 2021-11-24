@@ -191,21 +191,20 @@ E_F_4_5<<2)
    98 0000004C         
    99 0000004C BD14            POP              {R2, R4, PC}
   100 0000004E         
-  101 0000004E         ;----------------------------------------SET VALUE OF R4
-                        REGISTER WHERE LED WAS CONFIGURED----------------------
+  101 0000004E         ;----------------------------------SET VALUE OF R4 REGIS
+                       TER WHERE LED WAS CONFIGURED---------------------;
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-                       --------------------------;
   102 0000004E         __SET_VAL_DATA_REGISTER
   103 0000004E 6022            STR              R2, [R4]
   104 00000050 4770            BX               LR
   105 00000052         
   106 00000052         ;----------------------------------------SWITCH ON LED 1
-                       ------------------------------------------------;
+                       -------------------------------------------------;
   107 00000052         __SWITCH_ON_LED_1
   108 00000052 B514            PUSH             {R2, R4, LR}
   109 00000054 F04F 0210       MOV              R2, #BROCHE_F_4 ;; SWITCH ON LE
@@ -215,7 +214,7 @@ ARM Macro Assembler    Page 4
   111 0000005C BD14            POP              {R2, R4, PC}
   112 0000005E         
   113 0000005E         ;----------------------------------------SWITCH ON LED 2
-                       ------------------------------------------------;
+                       -------------------------------------------------;
   114 0000005E         __SWITCH_ON_LED_2
   115 0000005E B514            PUSH             {R2, R4, LR}
   116 00000060 F04F 0220       MOV              R2, #BROCHE_F_5 ;; SWITCH ON po
@@ -225,7 +224,7 @@ ARM Macro Assembler    Page 4
   118 00000068 BD14            POP              {R2, R4, PC}
   119 0000006A         
   120 0000006A         ;----------------------------------------SWITCH ON LED 1
-                        & 2------------------------------------------------;
+                        & 2---------------------------------------------;
   121 0000006A         __SWITCH_ON_LED_1_2
   122 0000006A B514            PUSH             {R2, R4, LR}
   123 0000006C F04F 0230       MOV              R2, #BROCHE_F_4_5 ;; SWITCH ON 
@@ -257,14 +256,14 @@ ARM Macro Assembler    Page 4
   139 0000008C BD14            POP              {R2, R4, PC}
   140 0000008E         
   141 0000008E         ;----------------------------------------SWITCH OFF LED 
-                       1 & é------------------------------------------------;
+                       1 & é--------------------------------------------;
+  142 0000008E         __SWITCH_OFF_LED_1_2
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-  142 0000008E         __SWITCH_OFF_LED_1_2
   143 0000008E B514            PUSH             {R2, R4, LR}
   144 00000090 F04F 02CF       MOV              R2, #SHUTDOWN_MASK_LED_1_2 ;; S
                                                             WITCH OFF LED portF
@@ -275,7 +274,7 @@ ARM Macro Assembler    Page 5
   147 0000009A         
   148 0000009A         
   149 0000009A         ;----------------------------------------BLINK LED 1 & 2
-                       ------------------------------------------------;
+                       -------------------------------------------------;
   150 0000009A         __BLINK_LED_1_2
   151 0000009A B516            PUSH             {R1, R2, R4, LR}
   152 0000009C F7FF FFFE       BL               __SWITCH_ON_LED_1_2
@@ -294,10 +293,11 @@ ARM Macro Assembler    Page 5
               400250C0 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_config_led.d -o.\objects\rd_bv_config_led.o -I.\RT
-E\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_
-v5\ARM\PACK\ARM\CMSIS\5.4.0\Device\ARM\ARMCM3\Include --predefine="__EVAL SETA 
-1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --predef
-ine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_led.lst RD_BV_CONFIG_LED.s
+E\_Target_1 -ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\Pr
+ogramFiles\Armv52\ARM\CMSIS\5.5.1\Device\ARM\ARMCM3\Include --predefine="__EVAL
+ SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --
+predefine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_led.lst RD_BV_CONFIG_L
+ED.s
 
 
 

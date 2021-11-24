@@ -153,11 +153,11 @@ ARM Macro Assembler    Page 3
               40007200 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_config_switch.d -o.\objects\rd_bv_config_switch.o 
--I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:
-\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\Device\ARM\ARMCM3\Include --predefine="__EVAL
- SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --
-predefine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_switch.lst RD_BV_CONFI
-G_SWITCH.s
+-I.\RTE\_Target_1 -ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -
+ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\Device\ARM\ARMCM3\Include --predefine="
+__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA
+ 1" --predefine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_switch.lst RD_BV
+_CONFIG_SWITCH.s
 
 
 

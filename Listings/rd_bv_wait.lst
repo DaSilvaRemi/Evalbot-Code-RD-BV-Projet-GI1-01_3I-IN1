@@ -7,48 +7,49 @@ ARM Macro Assembler    Page 1
     1 00000000 002FFFFF 
                        WAITING_BASE_TIME
                                EQU              0x002FFFFF
-    2 00000000 010B0760 
+    2 00000000         ;;0x33000000
+    3 00000000 005F5E10 
                        WAITING_HALF_ROTATION_TIME
-                               EQU              0x10B0760
-    3 00000000         ;;0x11A49A0 
-    4 00000000                 AREA             _WAIT_, CODE, READONLY
-    5 00000000                 ENTRY
-    6 00000000         
-    7 00000000                 EXPORT           __WAIT
-    8 00000000                 EXPORT           __WAIT_HALF_ROTATION
-    9 00000000                 EXPORT           __WAIT_A_TIME
-   10 00000000         
-   11 00000000         __WAIT
-   12 00000000 B502            PUSH             {R1, LR}
-   13 00000002 4906            LDR              R1, =WAITING_BASE_TIME 
+                               EQU              0x5f5E10
+    4 00000000         ;;0x11A49A0 
+    5 00000000                 AREA             _WAIT_, CODE, READONLY
+    6 00000000                 ENTRY
+    7 00000000         
+    8 00000000                 EXPORT           __WAIT
+    9 00000000                 EXPORT           __WAIT_HALF_ROTATION
+   10 00000000                 EXPORT           __WAIT_A_TIME
+   11 00000000         
+   12 00000000         __WAIT
+   13 00000000 B502            PUSH             {R1, LR}
+   14 00000002 4906            LDR              R1, =WAITING_BASE_TIME 
                                                             ;; Waiting Time
-   14 00000004 F7FF FFFE       BL               __WAIT_A_TIME
-   15 00000008 BD02            POP              {R1, PC}
-   16 0000000A         
-   17 0000000A         __WAIT_HALF_ROTATION
-   18 0000000A B502            PUSH             {R1, LR}
-   19 0000000C 4904            LDR              R1, =WAITING_HALF_ROTATION_TIME
+   15 00000004 F7FF FFFE       BL               __WAIT_A_TIME
+   16 00000008 BD02            POP              {R1, PC}
+   17 0000000A         
+   18 0000000A         __WAIT_HALF_ROTATION
+   19 0000000A B502            PUSH             {R1, LR}
+   20 0000000C 4904            LDR              R1, =WAITING_HALF_ROTATION_TIME
  
                                                             ;; Waiting Rotation
                                                              Time
-   20 0000000E F7FF FFFE       BL               __WAIT_A_TIME
-   21 00000012 BD02            POP              {R1, PC}
-   22 00000014         
-   23 00000014         __WAIT_A_TIME
-   24 00000014         while
-   25 00000014 3901            SUBS             R1, #1
-   26 00000016 D1FD            BNE              while
-   27 00000018 4770            BX               LR          ;return to caller
-   28 0000001A         
-   29 0000001A                 END
+   21 0000000E F7FF FFFE       BL               __WAIT_A_TIME
+   22 00000012 BD02            POP              {R1, PC}
+   23 00000014         
+   24 00000014         __WAIT_A_TIME
+   25 00000014         while
+   26 00000014 3901            SUBS             R1, #1
+   27 00000016 D1FD            BNE              while
+   28 00000018 4770            BX               LR          ;return to caller
+   29 0000001A         
+   30 0000001A                 END
               00 00 002FFFFF 
-              010B0760 
+              005F5E10 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_wait.d -o.\objects\rd_bv_wait.o -I.\RTE\_Target_1 
--IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\
-ARM\CMSIS\5.4.0\Device\ARM\ARMCM3\Include --predefine="__EVAL SETA 1" --predefi
-ne="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --predefine="ARMCM3 
-SETA 1" --list=.\listings\rd_bv_wait.lst RD_BV_WAIT.S
+-ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -ID:\ProgramFiles\A
+rmv52\ARM\CMSIS\5.5.1\Device\ARM\ARMCM3\Include --predefine="__EVAL SETA 1" --p
+redefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="A
+RMCM3 SETA 1" --list=.\listings\rd_bv_wait.lst RD_BV_WAIT.S
 
 
 
@@ -59,7 +60,7 @@ _WAIT_ 00000000
 
 Symbol: _WAIT_
    Definitions
-      At line 4 in file RD_BV_WAIT.S
+      At line 5 in file RD_BV_WAIT.S
    Uses
       None
 Comment: _WAIT_ unused
@@ -67,35 +68,35 @@ __WAIT 00000000
 
 Symbol: __WAIT
    Definitions
-      At line 11 in file RD_BV_WAIT.S
+      At line 12 in file RD_BV_WAIT.S
    Uses
-      At line 7 in file RD_BV_WAIT.S
+      At line 8 in file RD_BV_WAIT.S
 Comment: __WAIT used once
 __WAIT_A_TIME 00000014
 
 Symbol: __WAIT_A_TIME
    Definitions
-      At line 23 in file RD_BV_WAIT.S
+      At line 24 in file RD_BV_WAIT.S
    Uses
-      At line 9 in file RD_BV_WAIT.S
-      At line 14 in file RD_BV_WAIT.S
-      At line 20 in file RD_BV_WAIT.S
+      At line 10 in file RD_BV_WAIT.S
+      At line 15 in file RD_BV_WAIT.S
+      At line 21 in file RD_BV_WAIT.S
 
 __WAIT_HALF_ROTATION 0000000A
 
 Symbol: __WAIT_HALF_ROTATION
    Definitions
-      At line 17 in file RD_BV_WAIT.S
+      At line 18 in file RD_BV_WAIT.S
    Uses
-      At line 8 in file RD_BV_WAIT.S
+      At line 9 in file RD_BV_WAIT.S
 Comment: __WAIT_HALF_ROTATION used once
 while 00000014
 
 Symbol: while
    Definitions
-      At line 24 in file RD_BV_WAIT.S
+      At line 25 in file RD_BV_WAIT.S
    Uses
-      At line 26 in file RD_BV_WAIT.S
+      At line 27 in file RD_BV_WAIT.S
 Comment: while used once
 5 symbols
 
@@ -110,15 +111,15 @@ Symbol: WAITING_BASE_TIME
    Definitions
       At line 1 in file RD_BV_WAIT.S
    Uses
-      At line 13 in file RD_BV_WAIT.S
+      At line 14 in file RD_BV_WAIT.S
 Comment: WAITING_BASE_TIME used once
-WAITING_HALF_ROTATION_TIME 010B0760
+WAITING_HALF_ROTATION_TIME 005F5E10
 
 Symbol: WAITING_HALF_ROTATION_TIME
    Definitions
-      At line 2 in file RD_BV_WAIT.S
+      At line 3 in file RD_BV_WAIT.S
    Uses
-      At line 19 in file RD_BV_WAIT.S
+      At line 20 in file RD_BV_WAIT.S
 Comment: WAITING_HALF_ROTATION_TIME used once
 2 symbols
 343 symbols in table

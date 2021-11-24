@@ -106,46 +106,47 @@ EN
                                                             UNCTION
    50 0000001A F04F 0003       LDR              R0, = BROCHE_E_0_1
    51 0000001E 6030            STR              R0, [R6]
-   52 00000020 F8DF 8028       LDR              R8, = GPIO_PORT_E_BASE + (BROCH
+   52 00000020         
+   53 00000020 4770            BX               LR
+   54 00000022         
+   55 00000022         ;----------------------------------------END BUMPER CONF
+                       IGURATION-----------------------------------------------
+                       -;
+   56 00000022         
+   57 00000022         
+   58 00000022         ;----------------------------------------READ STATE OF B
+                       UMPER LEFT----------------------------------------------
+                       --;
+   59 00000022         __READ_STATE_BUMPER_1
+   60 00000022 F8DF 8028       LDR              R8, = GPIO_PORT_E_BASE + (BROCH
 E_E_1<<2) 
                                                             ;; @data Register =
                                                              @base + (mask<<2) 
                                                             ==> Bumper Left
-   53 00000024 F8DF 9028       LDR              R9, = GPIO_PORT_E_BASE + (BROCH
-E_E_0<<2) 
-                                                            ;; @data Register =
-                                                             @base + (mask<<2) 
-                                                            ==> Bumper Right
-   54 00000028         
-   55 00000028 4770            BX               LR
-   56 0000002A         
-   57 0000002A         ;----------------------------------------END BUMPER CONF
-                       IGURATION-----------------------------------------------
-                       -;
-   58 0000002A         
-   59 0000002A         ;----------------------------------------READ STATE OF B
-                       UMPER LEFT----------------------------------------------
-                       --;
-   60 0000002A         __READ_STATE_BUMPER_1
-   61 0000002A F8D8 A000       LDR              R10, [R8]
+   61 00000026 F8D8 A000       LDR              R10, [R8]
+   62 0000002A F1BA 0F00       CMP              R10, #0x00
+   63 0000002E 4770            BX               LR
+   64 00000030         
+   65 00000030         ;----------------------------------------READ STATE OF B
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-   62 0000002E F1BA 0F00       CMP              R10, #0x00
-   63 00000032 4770            BX               LR
-   64 00000034         
-   65 00000034         ;----------------------------------------READ STATE OF B
                        UMPER RIGHT---------------------------------------------
                        ---;
-   66 00000034         __READ_STATE_BUMPER_2
-   67 00000034 F8D9 A000       LDR              R10, [R9]
-   68 00000038 F1BA 0F00       CMP              R10, #0x00
-   69 0000003C 4770            BX               LR
-   70 0000003E         
-   71 0000003E                 END
+   66 00000030         __READ_STATE_BUMPER_2
+   67 00000030 F8DF 901C       LDR              R9, = GPIO_PORT_E_BASE + (BROCH
+E_E_0<<2) 
+                                                            ;; @data Register =
+                                                             @base + (mask<<2) 
+                                                            ==> Bumper Right
+   68 00000034 F8D9 A000       LDR              R10, [R9]
+   69 00000038 F1BA 0F00       CMP              R10, #0x00
+   70 0000003C 4770            BX               LR
+   71 0000003E         
+   72 0000003E                 END
               00 00 400FE108 
               40024510 
               4002451C 
@@ -153,11 +154,11 @@ ARM Macro Assembler    Page 3
               40024004 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\objects\rd_bv_config_bumper.d -o.\objects\rd_bv_config_bumper.o 
--I.\RTE\_Target_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:
-\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\Device\ARM\ARMCM3\Include --predefine="__EVAL
- SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --
-predefine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_bumper.lst RD_BV_CONFI
-G_BUMPER.s
+-I.\RTE\_Target_1 -ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\CMSIS\Core\Include -
+ID:\ProgramFiles\Armv52\ARM\CMSIS\5.5.1\Device\ARM\ARMCM3\Include --predefine="
+__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA
+ 1" --predefine="ARMCM3 SETA 1" --list=.\listings\rd_bv_config_bumper.lst RD_BV
+_CONFIG_BUMPER.s
 
 
 
@@ -180,15 +181,15 @@ Symbol: __CONFIG_BUMPER
    Uses
       At line 27 in file RD_BV_CONFIG_BUMPER.s
 Comment: __CONFIG_BUMPER used once
-__READ_STATE_BUMPER_1 0000002A
+__READ_STATE_BUMPER_1 00000022
 
 Symbol: __READ_STATE_BUMPER_1
    Definitions
-      At line 60 in file RD_BV_CONFIG_BUMPER.s
+      At line 59 in file RD_BV_CONFIG_BUMPER.s
    Uses
       At line 28 in file RD_BV_CONFIG_BUMPER.s
 Comment: __READ_STATE_BUMPER_1 used once
-__READ_STATE_BUMPER_2 00000034
+__READ_STATE_BUMPER_2 00000030
 
 Symbol: __READ_STATE_BUMPER_2
    Definitions
@@ -209,7 +210,7 @@ Symbol: BROCHE_E_0
    Definitions
       At line 19 in file RD_BV_CONFIG_BUMPER.s
    Uses
-      At line 53 in file RD_BV_CONFIG_BUMPER.s
+      At line 67 in file RD_BV_CONFIG_BUMPER.s
 Comment: BROCHE_E_0 used once
 BROCHE_E_0_1 00000003
 
@@ -226,7 +227,7 @@ Symbol: BROCHE_E_1
    Definitions
       At line 17 in file RD_BV_CONFIG_BUMPER.s
    Uses
-      At line 52 in file RD_BV_CONFIG_BUMPER.s
+      At line 60 in file RD_BV_CONFIG_BUMPER.s
 Comment: BROCHE_E_1 used once
 GPIO_I_PUR 00000510
 
@@ -260,8 +261,8 @@ Symbol: GPIO_PORT_E_BASE
    Uses
       At line 45 in file RD_BV_CONFIG_BUMPER.s
       At line 49 in file RD_BV_CONFIG_BUMPER.s
-      At line 52 in file RD_BV_CONFIG_BUMPER.s
-      At line 53 in file RD_BV_CONFIG_BUMPER.s
+      At line 60 in file RD_BV_CONFIG_BUMPER.s
+      At line 67 in file RD_BV_CONFIG_BUMPER.s
 
 
 

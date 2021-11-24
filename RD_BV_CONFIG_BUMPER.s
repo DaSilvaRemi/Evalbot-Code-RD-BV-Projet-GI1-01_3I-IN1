@@ -54,34 +54,19 @@ __CONFIG_BUMPER
 
 ;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
 
-;----------------------------------------START BUMPER CONFIGURATION------------------------------------------------;
-__CONFIG_BUMPER1_REGISTER
-							LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
-							BX LR
-
-;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
-
-;----------------------------------------START BUMPER CONFIGURATION------------------------------------------------;
-__CONFIG_BUMPER2_REGISTER
-							LDR R9, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
-
-							BX LR
-
-;----------------------------------------END BUMPER CONFIGURATION------------------------------------------------;
 
 ;----------------------------------------READ STATE OF BUMPER LEFT------------------------------------------------;
 __READ_STATE_BUMPER_1
-							PUSH { R8, R10, LR}
+							LDR R8, = GPIO_PORT_E_BASE + (BROCHE_E_1<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Left
 							LDR R10, [R8]
 							CMP R10, #0x00
-							POP { R8, R10, LR}
+							BX LR
 
 ;----------------------------------------READ STATE OF BUMPER RIGHT------------------------------------------------;
 __READ_STATE_BUMPER_2
-							PUSH { R9, R10, LR}
-							BL __CONFIG_BUMPER2_REGISTER
+							LDR R9, = GPIO_PORT_E_BASE + (BROCHE_E_0<<2)  ;; @data Register = @base + (mask<<2) ==> Bumper Right
 							LDR R10, [R9]
 							CMP R10, #0x00
-							POP { R8, R10, LR}
+							BX LR
 
 							END

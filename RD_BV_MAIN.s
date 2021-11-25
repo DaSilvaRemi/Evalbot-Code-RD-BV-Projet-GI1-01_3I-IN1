@@ -206,6 +206,14 @@ __DISPLAY_BINARY_MSG
 									PUSH { R0-R4, R6, R7, LR }
 									
 									LDR R3, =0
+									; test Valentin
+									BL __WAIT
+									BL __SWITCH_ON_LED_1_2
+									BL __WAIT
+									BL __WAIT
+									BL __SWITCH_OFF_LED_1_2
+									BL __WAIT
+									; fin test Valentin
 start_while_binary_msg
 									CMP R3, #8
 									BEQ end_while_binary_msg

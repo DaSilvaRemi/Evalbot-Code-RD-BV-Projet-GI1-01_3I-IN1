@@ -51,9 +51,7 @@ __CONFIG_SW
 									LDR R0, [R6]
 									ORR R0, R0, #BROCHE_D_6_7
 									STR R0, [R6]
-
-									LDR R11, = GPIO_PORT_D_BASE + (BROCHE_D_6<<2)  ;; @data Register = @base + (mask<<2) ==> SW1
-									LDR R12, = GPIO_PORT_D_BASE + (BROCHE_D_7<<2)  ;; @data Register = @base + (mask<<2) ==> SW2
+									
 
 									BX LR
 
@@ -61,14 +59,18 @@ __CONFIG_SW
 
 ;----------------------------------------READ STATE OF SW1------------------------------------------------;
 __READ_STATE_SW_1
+									PUSH { R10, R11, LR }
+									LDR R11, = GPIO_PORT_D_BASE + (BROCHE_D_6<<2)  ;; @data Register = @base + (mask<<2) ==> SW1
 									LDR R10, [R11]
 									CMP R10, #0x00
-									BX LR
+									POP { R10, R11, PC }
 
 ;----------------------------------------READ STATE OF SW2------------------------------------------------;
 __READ_STATE_SW_2
+									PUSH { R10, R12, LR }
+									LDR R12, = GPIO_PORT_D_BASE + (BROCHE_D_7<<2)  ;; @data Register = @base + (mask<<2) ==> SW2
 									LDR R10, [R12]
 									CMP R10, #0x00
-									BX LR
+									POP { R10, R12, PC }
 
 									END

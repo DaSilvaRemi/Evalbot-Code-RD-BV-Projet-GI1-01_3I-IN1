@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Code-RD-BV-Projet-GI1-01_3I-IN1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Code-RD-BV-Projet-GI1-01_3I-IN1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Nov 24 17:25:47 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Nov 24 18:53:47 2021
 <BR><P>
 <H3>Maximum Stack Usage =          0 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -365,8 +365,9 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>__SWITCH_ON_LED_1_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_), UNUSED, KEPT)
-<BR><BR>[Called By]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
+<P><STRONG><a name="[1f]"></a>__SWITCH_ON_LED_1_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_))
+<BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
 </UL>
 
 <P><STRONG><a name="[20]"></a>__SWITCH_OFF_LED_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_), UNUSED, KEPT)
@@ -414,6 +415,7 @@ Global Symbols
 <LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__CONFIG_SW
 <LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_OFF_LED_1_2
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_1_2
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_2
 <LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_1
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__CONFIG_LED

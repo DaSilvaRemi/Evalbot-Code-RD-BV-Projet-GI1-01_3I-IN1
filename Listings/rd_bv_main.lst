@@ -176,8 +176,8 @@ ARM Macro Assembler    Page 3
                        R SW2------------------------------------------------;
   103 0000004E         
   104 0000004E         __INIT_AFTER_SW2
-  105 0000004E 4A31            LDR              R2, =TEMPS_X
-  106 00000050 4B31            LDR              R3, =TEMPS_Y
+  105 0000004E 4A37            LDR              R2, =TEMPS_X
+  106 00000050 4B37            LDR              R3, =TEMPS_Y
   107 00000052 F04F 0700       LDR              R7, =2_00000000
   108 00000056 4770            BX               LR
   109 00000058         
@@ -305,48 +305,56 @@ ARM Macro Assembler    Page 5
   206 000000DA B5DF            PUSH             { R0-R4, R6, R7, LR }
   207 000000DC         
   208 000000DC F04F 0300       LDR              R3, =0
-  209 000000E0         start_while_binary_msg
-  210 000000E0 2B08            CMP              R3, #8
-  211 000000E2 D015            BEQ              end_while_binary_msg
-  212 000000E4         
-  213 000000E4 F007 0201       AND              R2, R7, #2_00000001
-  214 000000E8         
-  215 000000E8 2A01            CMP              R2, #1
-  216 000000EA D001            BEQ              display_1
-  217 000000EC         
-  218 000000EC 2A00            CMP              R2, #0
-  219 000000EE D002            BEQ              display_0
-  220 000000F0         
-  221 000000F0         display_1
-  222 000000F0 F7FF FFFE       BL               __SWITCH_ON_LED_2
-  223 000000F4 E001            B                end_display
-  224 000000F6         
-  225 000000F6         display_0
-  226 000000F6 F7FF FFFE       BL               __SWITCH_ON_LED_1
+  209 000000E0         ; test Valentin
+  210 000000E0 F7FF FFFE       BL               __WAIT
+  211 000000E4 F7FF FFFE       BL               __SWITCH_ON_LED_1_2
+  212 000000E8 F7FF FFFE       BL               __WAIT
+  213 000000EC F7FF FFFE       BL               __WAIT
+  214 000000F0 F7FF FFFE       BL               __SWITCH_OFF_LED_1_2
+  215 000000F4 F7FF FFFE       BL               __WAIT
+  216 000000F8         ; fin test Valentin
+  217 000000F8         start_while_binary_msg
+  218 000000F8 2B08            CMP              R3, #8
+  219 000000FA D015            BEQ              end_while_binary_msg
+  220 000000FC         
+  221 000000FC F007 0201       AND              R2, R7, #2_00000001
+  222 00000100         
+  223 00000100 2A01            CMP              R2, #1
+  224 00000102 D001            BEQ              display_1
+  225 00000104         
+  226 00000104 2A00            CMP              R2, #0
 
 
 
 ARM Macro Assembler    Page 6 
 
 
-  227 000000FA         end_display
-  228 000000FA F7FF FFFE       BL               __WAIT
-  229 000000FE F7FF FFFE       BL               __SWITCH_OFF_LED_1_2
-  230 00000102         
-  231 00000102 F103 0301       ADD              R3, #1
-  232 00000106 EA4F 0757       LSR              R7, #1
-  233 0000010A F7FF FFFE       BL               __WAIT
-  234 0000010E E7E7            B                start_while_binary_msg
-  235 00000110         end_while_binary_msg
-  236 00000110         
-  237 00000110 BDDF            POP              { R0-R4, R6, R7, PC }
-  238 00000112         
-  239 00000112         ;----------------------------------------END DISPLAY_BIN
+  227 00000106 D002            BEQ              display_0
+  228 00000108         
+  229 00000108         display_1
+  230 00000108 F7FF FFFE       BL               __SWITCH_ON_LED_2
+  231 0000010C E001            B                end_display
+  232 0000010E         
+  233 0000010E         display_0
+  234 0000010E F7FF FFFE       BL               __SWITCH_ON_LED_1
+  235 00000112         end_display
+  236 00000112 F7FF FFFE       BL               __WAIT
+  237 00000116 F7FF FFFE       BL               __SWITCH_OFF_LED_1_2
+  238 0000011A         
+  239 0000011A F103 0301       ADD              R3, #1
+  240 0000011E EA4F 0757       LSR              R7, #1
+  241 00000122 F7FF FFFE       BL               __WAIT
+  242 00000126 E7E7            B                start_while_binary_msg
+  243 00000128         end_while_binary_msg
+  244 00000128         
+  245 00000128 BDDF            POP              { R0-R4, R6, R7, PC }
+  246 0000012A         
+  247 0000012A         ;----------------------------------------END DISPLAY_BIN
                        ARY_MSG------------------------------------------------;
                        
-  240 00000112         
-  241 00000112         end_p
-  242 00000112                 END
+  248 0000012A         
+  249 0000012A         end_p
+  250 0000012A                 END
               00 00 0090F560 
               00469268 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
@@ -449,35 +457,35 @@ Symbol: basic_wall_is_bumped
    Uses
       None
 Comment: basic_wall_is_bumped unused
-display_0 000000F6
+display_0 0000010E
 
 Symbol: display_0
    Definitions
-      At line 225 in file RD_BV_MAIN.s
+      At line 233 in file RD_BV_MAIN.s
    Uses
-      At line 219 in file RD_BV_MAIN.s
+      At line 227 in file RD_BV_MAIN.s
 Comment: display_0 used once
-display_1 000000F0
+display_1 00000108
 
 Symbol: display_1
    Definitions
-      At line 221 in file RD_BV_MAIN.s
+      At line 229 in file RD_BV_MAIN.s
    Uses
-      At line 216 in file RD_BV_MAIN.s
+      At line 224 in file RD_BV_MAIN.s
 Comment: display_1 used once
-end_display 000000FA
+end_display 00000112
 
 Symbol: end_display
    Definitions
-      At line 227 in file RD_BV_MAIN.s
+      At line 235 in file RD_BV_MAIN.s
    Uses
-      At line 223 in file RD_BV_MAIN.s
+      At line 231 in file RD_BV_MAIN.s
 Comment: end_display used once
-end_p 00000112
+end_p 0000012A
 
 Symbol: end_p
    Definitions
-      At line 241 in file RD_BV_MAIN.s
+      At line 249 in file RD_BV_MAIN.s
    Uses
       None
 Comment: end_p unused
@@ -495,13 +503,13 @@ Relocatable symbols
    Uses
       None
 Comment: end_wall_is_bumped unused
-end_while_binary_msg 00000110
+end_while_binary_msg 00000128
 
 Symbol: end_while_binary_msg
    Definitions
-      At line 235 in file RD_BV_MAIN.s
+      At line 243 in file RD_BV_MAIN.s
    Uses
-      At line 211 in file RD_BV_MAIN.s
+      At line 219 in file RD_BV_MAIN.s
 Comment: end_while_binary_msg used once
 end_while_is_not_end_wall 000000D6
 
@@ -567,13 +575,13 @@ Symbol: shift_binary_mask
    Uses
       At line 189 in file RD_BV_MAIN.s
 Comment: shift_binary_mask used once
-start_while_binary_msg 000000E0
+start_while_binary_msg 000000F8
 
 Symbol: start_while_binary_msg
    Definitions
-      At line 209 in file RD_BV_MAIN.s
+      At line 217 in file RD_BV_MAIN.s
    Uses
-      At line 234 in file RD_BV_MAIN.s
+      At line 242 in file RD_BV_MAIN.s
 Comment: start_while_binary_msg used once
 start_while_is_not_end_wall 0000008C
 
@@ -915,19 +923,20 @@ Symbol: __SWITCH_OFF_LED_1_2
    Definitions
       At line 46 in file RD_BV_MAIN.s
    Uses
-      At line 229 in file RD_BV_MAIN.s
-Comment: __SWITCH_OFF_LED_1_2 used once
+      At line 214 in file RD_BV_MAIN.s
+      At line 237 in file RD_BV_MAIN.s
+
 __SWITCH_OFF_LED_2 00000000
 
 Symbol: __SWITCH_OFF_LED_2
    Definitions
-      At line 45 in file RD_BV_MAIN.s
 
 
 
 ARM Macro Assembler    Page 5 Alphabetic symbol ordering
 External symbols
 
+      At line 45 in file RD_BV_MAIN.s
    Uses
       None
 Comment: __SWITCH_OFF_LED_2 unused
@@ -937,7 +946,7 @@ Symbol: __SWITCH_ON_LED_1
    Definitions
       At line 41 in file RD_BV_MAIN.s
    Uses
-      At line 226 in file RD_BV_MAIN.s
+      At line 234 in file RD_BV_MAIN.s
 Comment: __SWITCH_ON_LED_1 used once
 __SWITCH_ON_LED_1_2 00000000
 
@@ -945,15 +954,15 @@ Symbol: __SWITCH_ON_LED_1_2
    Definitions
       At line 43 in file RD_BV_MAIN.s
    Uses
-      None
-Comment: __SWITCH_ON_LED_1_2 unused
+      At line 211 in file RD_BV_MAIN.s
+Comment: __SWITCH_ON_LED_1_2 used once
 __SWITCH_ON_LED_2 00000000
 
 Symbol: __SWITCH_ON_LED_2
    Definitions
       At line 42 in file RD_BV_MAIN.s
    Uses
-      At line 222 in file RD_BV_MAIN.s
+      At line 230 in file RD_BV_MAIN.s
 Comment: __SWITCH_ON_LED_2 used once
 __WAIT 00000000
 
@@ -961,8 +970,12 @@ Symbol: __WAIT
    Definitions
       At line 50 in file RD_BV_MAIN.s
    Uses
-      At line 228 in file RD_BV_MAIN.s
-      At line 233 in file RD_BV_MAIN.s
+      At line 210 in file RD_BV_MAIN.s
+      At line 212 in file RD_BV_MAIN.s
+      At line 213 in file RD_BV_MAIN.s
+      At line 215 in file RD_BV_MAIN.s
+      At line 236 in file RD_BV_MAIN.s
+      At line 241 in file RD_BV_MAIN.s
 
 __WAIT_A_TIME 00000000
 
@@ -982,6 +995,12 @@ Symbol: __WAIT_HALF_ROTATION
    Uses
       At line 117 in file RD_BV_MAIN.s
       At line 127 in file RD_BV_MAIN.s
+
+
+
+ARM Macro Assembler    Page 6 Alphabetic symbol ordering
+External symbols
+
 
 35 symbols
 404 symbols in table

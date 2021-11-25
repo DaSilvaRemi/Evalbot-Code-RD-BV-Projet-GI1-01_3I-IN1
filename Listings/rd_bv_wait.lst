@@ -10,7 +10,7 @@ ARM Macro Assembler    Page 1
     2 00000000         ;;0x33000000
     3 00000000 005F5E10 
                        WAITING_HALF_ROTATION_TIME
-                               EQU              0x5f5E10
+                               EQU              0x5f5e10
     4 00000000         ;;0x11A49A0 
     5 00000000                 AREA             _WAIT_, CODE, READONLY
     6 00000000                 ENTRY

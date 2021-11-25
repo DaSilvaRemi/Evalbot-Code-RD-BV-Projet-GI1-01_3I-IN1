@@ -77,7 +77,7 @@ ARM Macro Assembler    Page 2
    33 00000000         ; ;; Enable the Port E peripheral clock  (p291 datasheet
                         de lm3s9B96.pdf)
    34 00000000         ; ;;
-   35 00000000 4E0F            LDR              R6, = SYSCTL_PERIPH_GPIO 
+   35 00000000 4E12            LDR              R6, = SYSCTL_PERIPH_GPIO 
                                                             ;; RCGC2
    36 00000002 6830            LDR              R0, [R6]
    37 00000004 F040 0010       ORR              R0, R0, #0x00000010 ;; Enable c
@@ -94,13 +94,13 @@ ARM Macro Assembler    Page 2
    42 0000000A BF00            NOP
    43 0000000C BF00            NOP
    44 0000000E BF00            NOP
-   45 00000010 4E0C            LDR              R6, = GPIO_PORT_E_BASE+GPIO_I_P
+   45 00000010 4E0F            LDR              R6, = GPIO_PORT_E_BASE+GPIO_I_P
 UR 
                                                             ;; PULL_UP
    46 00000012 F04F 0003       LDR              R0, = BROCHE_E_0_1
    47 00000016 6030            STR              R0, [R6]
    48 00000018         
-   49 00000018 4E0B            LDR              R6, = GPIO_PORT_E_BASE+GPIO_O_D
+   49 00000018 4E0E            LDR              R6, = GPIO_PORT_E_BASE+GPIO_O_D
 EN 
                                                             ;; ENABLE DIGITAL F
                                                             UNCTION
@@ -118,35 +118,37 @@ EN
                        UMPER LEFT----------------------------------------------
                        --;
    59 00000022         __READ_STATE_BUMPER_1
-   60 00000022 F8DF 8028       LDR              R8, = GPIO_PORT_E_BASE + (BROCH
+   60 00000022 E92D 4500       PUSH             { R8, R10, LR }
+   61 00000026 F8DF 8030       LDR              R8, = GPIO_PORT_E_BASE + (BROCH
 E_E_1<<2) 
                                                             ;; @data Register =
                                                              @base + (mask<<2) 
                                                             ==> Bumper Left
-   61 00000026 F8D8 A000       LDR              R10, [R8]
-   62 0000002A F1BA 0F00       CMP              R10, #0x00
-   63 0000002E 4770            BX               LR
-   64 00000030         
-   65 00000030         ;----------------------------------------READ STATE OF B
+   62 0000002A F8D8 A000       LDR              R10, [R8]
+   63 0000002E F1BA 0F00       CMP              R10, #0x00
+   64 00000032 E8BD 8500       POP              { R8, R10, PC }
+   65 00000036         
 
 
 
 ARM Macro Assembler    Page 3 
 
 
+   66 00000036         ;----------------------------------------READ STATE OF B
                        UMPER RIGHT---------------------------------------------
                        ---;
-   66 00000030         __READ_STATE_BUMPER_2
-   67 00000030 F8DF 901C       LDR              R9, = GPIO_PORT_E_BASE + (BROCH
+   67 00000036         __READ_STATE_BUMPER_2
+   68 00000036 E92D 4600       PUSH             { R9, R10, LR }
+   69 0000003A F8DF 9020       LDR              R9, = GPIO_PORT_E_BASE + (BROCH
 E_E_0<<2) 
                                                             ;; @data Register =
                                                              @base + (mask<<2) 
                                                             ==> Bumper Right
-   68 00000034 F8D9 A000       LDR              R10, [R9]
-   69 00000038 F1BA 0F00       CMP              R10, #0x00
-   70 0000003C 4770            BX               LR
-   71 0000003E         
-   72 0000003E                 END
+   70 0000003E F8D9 A000       LDR              R10, [R9]
+   71 00000042 F1BA 0F00       CMP              R10, #0x00
+   72 00000046 E8BD 8300       POP              { R8, R9, PC }
+   73 0000004A         
+   74 0000004A                 END
               00 00 400FE108 
               40024510 
               4002451C 
@@ -189,11 +191,11 @@ Symbol: __READ_STATE_BUMPER_1
    Uses
       At line 28 in file RD_BV_CONFIG_BUMPER.s
 Comment: __READ_STATE_BUMPER_1 used once
-__READ_STATE_BUMPER_2 00000030
+__READ_STATE_BUMPER_2 00000036
 
 Symbol: __READ_STATE_BUMPER_2
    Definitions
-      At line 66 in file RD_BV_CONFIG_BUMPER.s
+      At line 67 in file RD_BV_CONFIG_BUMPER.s
    Uses
       At line 29 in file RD_BV_CONFIG_BUMPER.s
 Comment: __READ_STATE_BUMPER_2 used once
@@ -210,7 +212,7 @@ Symbol: BROCHE_E_0
    Definitions
       At line 19 in file RD_BV_CONFIG_BUMPER.s
    Uses
-      At line 67 in file RD_BV_CONFIG_BUMPER.s
+      At line 69 in file RD_BV_CONFIG_BUMPER.s
 Comment: BROCHE_E_0 used once
 BROCHE_E_0_1 00000003
 
@@ -227,7 +229,7 @@ Symbol: BROCHE_E_1
    Definitions
       At line 17 in file RD_BV_CONFIG_BUMPER.s
    Uses
-      At line 60 in file RD_BV_CONFIG_BUMPER.s
+      At line 61 in file RD_BV_CONFIG_BUMPER.s
 Comment: BROCHE_E_1 used once
 GPIO_I_PUR 00000510
 
@@ -261,8 +263,8 @@ Symbol: GPIO_PORT_E_BASE
    Uses
       At line 45 in file RD_BV_CONFIG_BUMPER.s
       At line 49 in file RD_BV_CONFIG_BUMPER.s
-      At line 60 in file RD_BV_CONFIG_BUMPER.s
-      At line 67 in file RD_BV_CONFIG_BUMPER.s
+      At line 61 in file RD_BV_CONFIG_BUMPER.s
+      At line 69 in file RD_BV_CONFIG_BUMPER.s
 
 
 

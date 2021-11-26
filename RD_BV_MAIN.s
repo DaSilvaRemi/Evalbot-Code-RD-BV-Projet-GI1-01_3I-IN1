@@ -1,4 +1,6 @@
+; TIME X TO WAIT WHILE EVALBOT MOVE ON X AXE
 TEMPS_X EQU 0x90f560
+; TIME Y TO WAIT WHILE EVALBOT MOVE ON Y AXE
 TEMPS_Y EQU 0x469268
 
 									AREA    _MAIN_PROGRAM_, CODE, READONLY
@@ -47,16 +49,21 @@ TEMPS_Y EQU 0x469268
 									IMPORT __BLINK_LED_1_2 ;Blink LED 1 & 2
 
 									;----------------------TOOLS-----------------;
-									IMPORT __WAIT
-									IMPORT __WAIT_HALF_ROTATION
-									IMPORT __WAIT_A_TIME
+									IMPORT __WAIT ;WAIT A DEFAULT TIME
+									IMPORT __WAIT_HALF_ROTATION ; WAIT HAL ROTATION OF EVALBOT
+									IMPORT __WAIT_A_TIME WAIT A TIME SET IN PARAM
 
 ;----------------------------------------START MAIN------------------------------------------------;
 
+;;;
+;;main program
+;;;
 __main
-									BL __INIT_START
-									BL __CONFIG_BUMPER
-
+									;------------------CONFIG SW, BUMPER and init ENGINE--------------------------;
+									BL __INIT_START ;init engine and SW and wait SW2 to be activated
+									BL __CONFIG_BUMPER ; config bumper after SW2 is activated
+									
+									;------------------WAIT TO HIT START WALL--------------------------;
 start_while_is_start_wall
 									BL __READ_STATE_BUMPER_1
 									BEQ end_while_is_start_wall
@@ -64,16 +71,21 @@ start_while_is_start_wall
 									BL __READ_STATE_BUMPER_2
 									BNE start_while_is_start_wall
 
+									;------------------WAIT TO HIT END WALL--------------------------;
 end_while_is_start_wall
-									BL __WHILE_IS_NOT_END_WALL
+									BL __WHILE_IS_NOT_END_WALL ;Lauchn binary counter and wait to hit end
 
-									BL __ENGINE_LEFT_RIGHT_OFF
+									;------------------STOP ENGINE AND WAIT USER ACTION--------------------------;
+									BL __ENGINE_LEFT_RIGHT_OFF 
 									BL __CONFIG_SW
-									BL __CONFIG_LED
+									BL __CONFIG_LED ;CONFIG LED to display MSG
+									
+									;------------WAIT USER PRESSED SW1-------------;
 sw1
 									BL __READ_STATE_SW_1
 									BNE sw1
-
+									
+									;If user press SW1 display MSG
 									BL __DISPLAY_BINARY_MSG
 
 						 			B sw1
@@ -82,16 +94,22 @@ sw1
 
 ;----------------------------------------START INIT START------------------------------------------------;
 
+;;;
+;;INIT the engine and config SWITCH. Wait SW2 is activated and turn on engine.
+;;;
 __INIT_START
 									PUSH { R0, R6, R10-R12, LR }
 
+									//CONFIG ENGINE AND SW
 									BL __ENGINE_INIT
 									BL __CONFIG_SW
-
+									
+									//WAIT SW2 TO BE PRESSED
 sw2
 									BL __READ_STATE_SW_2
 									BNE sw2
 
+									//TURN ON ENGINE
 									BL __ENGINE_LEFT_RIGHT_ON
 									BL __ENGINE_LEFT_RIGHT_FRONT
 
@@ -101,6 +119,9 @@ sw2
 
 ;----------------------------------------START INIT AFTER SW2------------------------------------------------;
 
+;;;
+;; LOAD WAIT TIME and SET the registor to MSG
+;;;
 __INIT_AFTER_SW2
 									LDR R2, =TEMPS_X
 									LDR R3, =TEMPS_Y
@@ -110,7 +131,9 @@ __INIT_AFTER_SW2
 ;----------------------------------------END INIT AFTER SW2------------------------------------------------;
 
 ;----------------------------------------START TURN 90 RIGHT------------------------------------------------;
-
+;;;
+;; LOAD 90 degrees to the right
+;;;
 __TURN_90_RIGHT
 									PUSH { R0, R1, R6, LR }
 									BL __ENGINE_LEFT_FRONT_RIGHT_BACK
@@ -120,7 +143,9 @@ __TURN_90_RIGHT
 ;----------------------------------------END TURN 90 RIGHT------------------------------------------------;
 
 ;----------------------------------------START TURN 90 LEFT------------------------------------------------;
-
+;;;
+;; LOAD 90 degrees to the left
+;;;
 __TURN_90_LEFT
 									PUSH { R0, R1, R6, LR }
 									BL __ENGINE_LEFT_BACK_RIGHT_FRONT
@@ -128,17 +153,6 @@ __TURN_90_LEFT
 									POP { R0, R1, R6, PC }
 
 ;----------------------------------------END TURN 90 LEFT------------------------------------------------;
-
-
-;----------------------------------------START TURN_ARROUND------------------------------------------------;
-
-__TURN_ARROUND
-									PUSH { R0, R1, R6, LR }
-									BL __TURN_90_RIGHT
-									BL __TURN_90_RIGHT
-									POP { R0, R1, R6, PC }
-
-;----------------------------------------END TURN_ARROUND------------------------------------------------;
 
 ;----------------------------------------START WHILE IS NOT END WALL------------------------------------------------;
 
@@ -152,8 +166,6 @@ init_startup_while_var
 start_while_is_not_end_wall
 
 									BL __ENGINE_LEFT_RIGHT_BACK
-									;BL __TURN_ARROUND
-									;BL __ENGINE_LEFT_RIGHT_FRONT
 
 wait_to_be_outside_range_Y_DOWN
 									MOV R1, R3

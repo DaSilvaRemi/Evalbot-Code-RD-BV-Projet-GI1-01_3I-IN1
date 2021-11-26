@@ -1,15 +1,13 @@
 	;; RD BV - Evalbot (Cortex M3 de Texas Instrument);
-; programme - Pilotage 2 ENGINEs Evalbot par PWM tout en ASM (configure les pwms + GPIO)
-
-;Les pages se réfèrent au datasheet lm3s9b92.pdf
+; Control 2 ENGINES of Evalbot by PWM all in ASM (configure the pwms + GPIO)
 
 ;Cablage :
-;pin 10/PD0/PWM0 => input PWM du pont en H DRV8801RT
-;pin 11/PD1/PWM1 => input Phase_R  du pont en H DRV8801RT
-;pin 12/PD2		 => input SlowDecay commune aux 2 ponts en H
+;pin 10/PD0/PWM0 => input PWM bridge in H DRV8801RT
+;pin 11/PD1/PWM1 => input Phase_R  bridge in H DRV8801RT
+;pin 12/PD2		 => input SlowDecay common of 2 bridge in H
 ;pin 98/PD5		 => input Enable 12v du conv DC/DC
-;pin 86/PH0/PWM2 => input PWM du 2nd pont en H
-;pin 85/PH1/PWM3 => input Phase du 2nd pont en H
+;pin 86/PH0/PWM2 => input PWM of 2nd bridge in H
+;pin 85/PH1/PWM3 => input Phase of 2nd bridge in H
 
 ;; Hexa cORResponding values to pin numbers
 GPIO_0		EQU		0x1
@@ -71,14 +69,14 @@ PWM1GENB			EQU		PWM_BASE+0x0A4
 
 ;0x1A2
 VITESSE				EQU		0x100	
-								; Valeures plus petites => Vitesse plus rapide exemple 0x192
-								; Valeures plus grANDes => Vitesse moins rapide exemple 0x1B2
+								; Smaller Values => Faster speed exemple 0x192
+								; Bigger Value => Lower speed exemple 0x1B2
 
 
 									AREA    _CONFIG_ENGINE_, CODE, READONLY
 									ENTRY
 
-									;; The EXPORT commAND specifies that a symbol can be accessed by other shared objects or executables.
+									;; The EXPORT command specifies that a symbol can be accessed by other shared objects or executables.
 									EXPORT	__ENGINE_INIT
 									EXPORT	__ENGINE_RIGHT_ON
 									EXPORT  __ENGINE_RIGHT_OFF
@@ -100,15 +98,16 @@ VITESSE				EQU		0x100
 
 
 __ENGINE_INIT
+									;CONFIGURE CLOCK RCGC0
 									LDR R6, = SYSCTL_RCGC0
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x00100000  ;;bit 20 = PWM recoit clock: ON (p271)
 									STR R0, [R6]
 
 									;ROM_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);PWM clock is processor clock /1
-									;Je ne fais rien car par defaut = OK!!
+									;Do nothing by default = OK!!
 									;*(int *) (0x400FE060)= *(int *)(0x4
-									;RCGC2 :  Enable port D GPIO(p291 ) car ENGINE RIGHT sur port D
+									;RCGC2 :  Enable port D GPIO(p291 ) car ENGINE RIGHT in port D
 									LDR R6, = SYSCTL_RCGC2
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x08  ;; Enable port D GPIO
@@ -270,8 +269,7 @@ __ENGINE_INIT
 									BX	LR	; FIN du sous programme d'init.
 
 ;Enable PWM0 (bit 0) et PWM2 (bit 2) p1145
-;Attention ici c'est les sorties PWM0 et PWM2
-;qu'on controle, pas les blocks PWM0 et PWM1!!!
+;Warning here it's output PWM0 et PWM2 we controling, npt les blocks PWM0 et PWM1!!!
 __ENGINE_RIGHT_ON
 									;Enable sortie PWM0 (bit 0), p1145
 									LDR	R6,	=PWMENABLE
@@ -302,12 +300,18 @@ __ENGINE_LEFT_OFF
 									BX	LR
 
 __ENGINE_LEFT_RIGHT_ON
+;;;
+;;Start engine LEFT and RIGHT
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_ON
 									BL __ENGINE_RIGHT_ON
 									POP { R0, R6, PC}
 
 __ENGINE_LEFT_RIGHT_OFF
+;;;
+;;Stop engine LEFT and RIGHT
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_OFF
 									BL __ENGINE_RIGHT_OFF
@@ -358,18 +362,27 @@ __ENGINE_LEFT_INVERSE
 									BX	LR
 
 __ENGINE_LEFT_RIGHT_FRONT
+;;;
+;;LEFT and RIGHT go FRONT
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_FRONT
 									BL __ENGINE_RIGHT_FRONT
 									POP { R0, R6, PC}
 
 __ENGINE_LEFT_RIGHT_BACK
+;;;
+;;LEFT and RIGHT go BACK
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_BACK
 									BL __ENGINE_RIGHT_BACK
 									POP { R0, R6, PC}
 
 __ENGINE_LEFT_FRONT_RIGHT_BACK
+;;;
+;;TURN RIGHT
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_FRONT
 									BL __ENGINE_RIGHT_BACK
@@ -377,12 +390,18 @@ __ENGINE_LEFT_FRONT_RIGHT_BACK
 
 
 __ENGINE_LEFT_BACK_RIGHT_FRONT
+;;;
+;;TURN LEFT
+;;;
 									PUSH { R0, R6, LR}
 									BL __ENGINE_LEFT_BACK
 									BL __ENGINE_RIGHT_FRONT
 									POP { R0, R6, PC}
 
 __ENGINE_LEFT_RIGHT_INVERSE
+;;;
+;;INVERSE BOTH ENGINE
+;;;
 									PUSH { R0, R1, R6, LR}
 									BL __ENGINE_LEFT_INVERSE
 									BL __ENGINE_RIGHT_INVERSE

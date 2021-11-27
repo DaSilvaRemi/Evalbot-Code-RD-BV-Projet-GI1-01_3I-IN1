@@ -6,7 +6,7 @@ SYSCTL_PERIPH_GPIO 		EQU		0x400FE108	; SYSCTL_RCGC2_R (p291 datasheet de lm3s9b9
 
 ; configure the corresponding pin to be an output
 ; all GPIO pins are inputs by default
-GPIO_O_DIR   			EQU 	0x00000400  ; GPIO Direction (p417 datasheet de lm3s9B92.pdf)
+GPIO_O_DIR   			EQU 	0x00000400  ; GPIO Direction (p417 datasheet of lm3s9B92.pdf)
 
 ; To use the pin as a digital input or output, the corresponding GPIODEN bit must be set.
 GPIO_O_DEN  			EQU 	0x0000051C  ; GPIO Digital Enable (p437 of datasheet lm3s9B92.pdf)
@@ -15,7 +15,7 @@ GPIO_O_DEN  			EQU 	0x0000051C  ; GPIO Digital Enable (p437 of datasheet lm3s9B9
 GPIO_I_PUR   			EQU 	0x00000510  ; GPIO Digital Enable (p432 of datasheet lm3s9B92.pdf)
 
 ; The GPIODATA register is the data register
-GPIO_PORT_E_BASE		EQU		0x40024000	; GPIO Port E (APB) base: 0x4002.4000 (p416 datasheet de lm3s9B92.pdf)
+GPIO_PORT_E_BASE		EQU		0x40024000	; GPIO Port E (APB) base: 0x4002.4000 (p416 datasheet of lm3s9B92.pdf)
 
 BROCHE_E_1				EQU 	0x02		; Bumper Left
 

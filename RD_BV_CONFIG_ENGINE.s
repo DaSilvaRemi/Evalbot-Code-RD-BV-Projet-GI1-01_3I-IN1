@@ -1,5 +1,6 @@
 	;; RD BV - Evalbot (Cortex M3 de Texas Instrument);
 ; Control 2 ENGINES of Evalbot by PWM all in ASM (configure the pwms + GPIO)
+;Code are based of code of Mr Kachouri Rostrom
 
 ;Cablage :
 ;pin 10/PD0/PWM0 => input PWM bridge in H DRV8801RT
@@ -9,7 +10,7 @@
 ;pin 86/PH0/PWM2 => input PWM of 2nd bridge in H
 ;pin 85/PH1/PWM3 => input Phase of 2nd bridge in H
 
-;; Hexa cORResponding values to pin numbers
+;; Hexa corresponding values to pin numbers
 GPIO_0		EQU		0x1
 GPIO_1		EQU		0x2
 GPIO_2		EQU		0x4
@@ -39,19 +40,11 @@ GPIODEN_H			EQU		PORTH_BASE+0x0000051C
 GPIOPCTL_H			EQU		PORTH_BASE+0x0000052C ; GPIO Port Control (GPIOPCTL), offset 0x52C; p444
 GPIOAFSEL_H			EQU		PORTH_BASE+0x00000420 ; GPIO Alternate Function Select (GPIOAFSEL), offset 0x420; p426
 
-GPIO_PORT_E_BASE 	EQU 	0x40024000
-GPIODATA_E			EQU 	GPIO_PORT_E_BASE
-GPIODIR_E			EQU		GPIO_PORT_E_BASE+0x400
-GPIODR2R_E			EQU 	GPIO_PORT_E_BASE+0x500
-GPIODEN_E			EQU		GPIO_PORT_E_BASE+0x51C
-GPIOPCTL_E			EQU		GPIO_PORT_E_BASE+0x52C ; GPIO Port Control (GPIOPCTL), offset 0x52C; p444
-GPIOAFSEL_E			EQU		GPIO_PORT_E_BASE+0x420 ; GPIO Alternate Function Select (GPIOAFSEL), offset 0x420; p426
-
 ;; Pulse Width Modulator (PWM) configuration
 PWM_BASE			EQU		0x040028000 	   ;BASE des Block PWM p.1138
 PWMENABLE			EQU		PWM_BASE+0x008	   ; p1145
 
-;Block PWM0 pour sorties PWM0 et PWM1 (ENGINE 1)
+;Block PWM0 pour outputs PWM0 et PWM1 (ENGINE 1)
 PWM0CTL				EQU		PWM_BASE+0x040 ;p1167
 PWM0LOAD			EQU		PWM_BASE+0x050
 PWM0CMPA			EQU		PWM_BASE+0x058
@@ -59,7 +52,7 @@ PWM0CMPB			EQU		PWM_BASE+0x05C
 PWM0GENA			EQU		PWM_BASE+0x060
 PWM0GENB			EQU		PWM_BASE+0x064
 
-;Block PWM1 pour sorties PWM1 et PWM2 (ENGINE 2)
+;Block PWM1 pour outputs PWM1 et PWM2 (ENGINE 2)
 PWM1CTL				EQU		PWM_BASE+0x080
 PWM1LOAD			EQU		PWM_BASE+0x090
 PWM1CMPA			EQU		PWM_BASE+0x098
@@ -107,7 +100,7 @@ __ENGINE_INIT
 									;ROM_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);PWM clock is processor clock /1
 									;Do nothing by default = OK!!
 									;*(int *) (0x400FE060)= *(int *)(0x4
-									;RCGC2 :  Enable port D GPIO(p291 ) car ENGINE RIGHT in port D
+									;RCGC2 :  Enable port D GPIO(p291 ) because ENGINE RIGHT in port D
 									LDR R6, = SYSCTL_RCGC2
 									LDR	R0, [R6]
 									ORR	R0, R0, #0x08  ;; Enable port D GPIO
@@ -123,62 +116,62 @@ __ENGINE_INIT
 									NOP
 									NOP
 
-									;;Pin muxing pour PWM, port D, reg. GPIOPCTL(p444), 4bits de PCM0=0001<=>PWM (voir p1261)
-									;;il faut mettre 1 pour avoir PD0=PWM0 et PD1=PWM1
+									;;Pin muxing for PWM, port D, reg. GPIOPCTL(p444), 4bits of PCM0=0001<=>PWM (see p1261)
+									;;Need to set 1 to have PD0=PWM0 and PD1=PWM1
 									LDR R6, = GPIOPCTL_D
 									;LDR	R0, [R6] 	 ;;	*(int *)(0x40007000+0x0000052C)=1;
 									;ORR	R0, R0, #0x01 ;; Port D, pin 1 = PWM
 									MOV	R0, #0x01
 									STR R0, [R6]
 
-									;;MOT2 : Pin muxing pour PWM, port H, reg. GPIOPCTL(p444), 4bits de PCM0=0001<=>PWM (voir p1261)
-									;;il faut mettre mux = 2 pour avoir PH0=PWM2 et PH1=PWM3
+									;;MOT2 : Pin muxing for PWM, port H, reg. GPIOPCTL(p444), 4bits in PCM0=0001<=>PWM (see p1261)
+									;;we need to set mux = 2 to have PH0=PWM2 and PH1=PWM3
 									LDR R6, = GPIOPCTL_H
 									MOV	R0, #0x02
 									STR R0, [R6]
 
-									;;Alternate Function Select (p 426), PD0 utilise alernate fonction (PWM au dessus)
-									;;donc PD0 = 1
+									;;Alternate Function Select (p 426), PD0 use alernate fonction (PWM upward)
+									;;so PD0 = 1
 									LDR R6, =GPIOAFSEL_D
 									LDR	R0, [R6] 	  ;*(int *)(0x40007000+0x00000420)= *(int *)(0x40007000+0x00000420) | 0x00000001;
 									ORR	R0, R0, #0x01 ;
 									STR R0, [R6]
 
-									;;MOT2 : Alternate Function Select (p 426), PH0 utilise PWM donc Alternate funct
-									;;donc PH0 = 1
+									;;MOT2 : Alternate Function Select (p 426), PH0 use PWM so Alternate funct
+									;;so PH0 = 1
 									LDR R6, =GPIOAFSEL_H
 									LDR	R0, [R6] 	  ;*(int *)(0x40007000+0x00000420)= *(int *)(0x40007000+0x00000420) | 0x00000001;
 									ORR	R0, R0, #0x01 ;
 									STR R0, [R6]
 
-									;;-----------PWM0 pour ENGINE 1 connect� � PD0
-									;;PWM0 produit PWM0 et PWM1 output
+									;;-----------PWM0 pour ENGINE 1 connect at PD0
+									;;PWM0 produce PWM0 and PWM1 output
 									;;Config Modes PWM0 + mode GenA + mode GenB
 									LDR R6, = PWM0CTL
-									MOV	R0, #2		;Mode up-down-up-down, pas synchro
+									MOV	R0, #2		;Mode up-down-up-down, not synchro
 									STR R0, [R6]
 
-									LDR R6, =PWM0GENA ;en decomptage, qd comparateurA = compteur => sortie pwmA=0
-									;en comptage croissant, qd comparateurA = compteur => sortie pwmA=1
-									MOV	R0,	#0x0B0 	;0B0=10110000 => ACTCMPBD=00 (B down:rien), ACTCMPBU=00(B up rien)
+									LDR R6, =PWM0GENA ;Descending count, when CMPA = CPT => output pwmA=0
+									;Croissant count, when CMPA = CPT => output pwmA=1
+									MOV	R0,	#0x0B0 	;0B0=10110000 => ACTCMPBD=00 (B down:nothing), ACTCMPBU=00(B up nothing)
 									STR R0, [R6]	;ACTCMPAD=10 (A down:pwmA low), ACTCMPAU=11 (A up:pwmA high) , ACTLOAD=00,ACTZERO=00
 
-									LDR R6, =PWM0GENB;en comptage croissant, qd comparateurB = compteur => sortie pwmA=1
-									MOV	R0,	#0x0B00	;en decomptage, qd comparateurB = compteur => sortie pwmB=0
+									LDR R6, =PWM0GENB;in Croissant count, when CMPB = CPT => output pwmA=1
+									MOV	R0,	#0x0B00	;in decending count, when CMPB = CPT => output pwmB=0
 									STR R0, [R6]
-									;Config Compteur, comparateur A et comparateur B
+									;Config CPT, CMP A et CMP B
 														;;#define PWM_PERIOD (ROM_SysCtlClockGet() / 16000),
-									;;en mesure : SysCtlClockGet=0F42400h, /16=0x3E8,
-									;;on divise par 2 car ENGINE 6v sur alim 12v
+									;;mesure : SysCtlClockGet=0F42400h, /16=0x3E8,
+									;;divide by 2 because ENGINE 6v on alim 12v
 									LDR	R6, =PWM0LOAD ;PWM0LOAD=periode/2 =0x1F4
 									MOV R0,	#0x1F4
 									STR	R0,[R6]
 
-									LDR	R6, =PWM0CMPA ;Valeur rapport cyclique : pour 10% => 1C2h si clock = 0F42400
+									LDR	R6, =PWM0CMPA ;Value cyclique report : for 10% => 1C2h if clock = 0F42400
 									MOV	R0, #VITESSE
 									STR	R0, [R6]
 
-									LDR	R6, =PWM0CMPB ;PWM0CMPB recoit meme valeur. (rapport cyclique depend de CMPA)
+									LDR	R6, =PWM0CMPB ;PWM0CMPB receive same value. (cyclique report depending of CMPA)
 									MOV	R0,	#0x1F4
 									STR	R0,	[R6]
 
@@ -188,53 +181,53 @@ __ENGINE_INIT
 									ORR	R0,	R0,	#0x07
 									STR	R0,	[R6]
 
-									;;-----------PWM2 pour ENGINE 2 connect� � PH0
-									;;PWM1block produit PWM2 et PWM3 output
+									;;-----------PWM2 for ENGINE 2 connect to PH0
+									;;PWM1block produce PWM2 et PWM3 output
 									;;Config Modes PWM2 + mode GenA + mode GenB
 									LDR R6, = PWM1CTL
-									MOV	R0, #2		;Mode up-down-up-down, pas synchro
+									MOV	R0, #2		;Mode up-down-up-down, not synchro
 									STR R0, [R6]	;*(int *)(0x40028000+0x040)=2;
 
-									LDR R6, =PWM1GENA ;en decomptage, qd comparateurA = compteur => sortie pwmA=0
-									;en comptage croissant, qd comparateurA = compteur => sortie pwmA=1
-									MOV	R0,	#0x0B0 	;0B0=10110000 => ACTCMPBD=00 (B down:rien), ACTCMPBU=00(B up rien)
+									LDR R6, =PWM1GENA ;decount, when CMPA = CPT => output pwmA=0
+									;croissant count, when CMPA = CPT => output pwmA=1
+									MOV	R0,	#0x0B0 	;0B0=10110000 => ACTCMPBD=00 (B down:nothing), ACTCMPBU=00(B up nothing)
 									STR R0, [R6]	;ACTCMPAD=10 (A down:pwmA low), ACTCMPAU=11 (A up:pwmA high) , ACTLOAD=00,ACTZERO=00
 
  									;*(int *)(0x40028000+0x060)=0x0B0; //
 									LDR R6, =PWM1GENB	;*(int *)(0x40028000+0x064)=0x0B00;
-									MOV	R0,	#0x0B00	;en decomptage, qd comparateurB = compteur => sortie pwmB=0
-									STR R0, [R6]	;en comptage croissant, qd comparateurB = compteur => sortie pwmA=1
-									;Config Compteur, comparateur A et comparateur B
+									MOV	R0,	#0x0B00	;in decount, when CMPB = CPT => output pwmB=0
+									STR R0, [R6]	;in count croissant, when CMPB = CPT => output pwmA=1
+									;Config CPT, CMP A et CMP B
 									;;#define PWM_PERIOD (ROM_SysCtlClockGet() / 16000),
-									;;en mesure : SysCtlClockGet=0F42400h, /16=0x3E8,
-									;;on divise par 2 car ENGINE 6v sur alim 12v
+									;;in mesure : SysCtlClockGet=0F42400h, /16=0x3E8,
+									;;divide by 2 because ENGINE 6v sur alim 12v
 									;*(int *)(0x40028000+0x050)=0x1F4; //PWM0LOAD=periode/2 =0x1F4
 									LDR	R6, =PWM1LOAD
 									MOV R0,	#0x1F4
 									STR	R0,[R6]
 
-									LDR	R6, =PWM1CMPA ;Valeur rapport cyclique : pour 10% => 1C2h si clock = 0F42400
+									LDR	R6, =PWM1CMPA ;cyclique value report : pour 10% => 1C2h if clock = 0F42400
 									MOV	R0,	#VITESSE
 									STR	R0, [R6]  ;*(int *)(0x40028000+0x058)=0x01C2;
 
-									LDR	R6, =PWM1CMPB ;PWM0CMPB recoit meme valeur. (CMPA depend du rapport cyclique)
+									LDR	R6, =PWM1CMPB ;PWM0CMPB recoit meme value. (CMPA depend du cyclique report)
 									MOV	R0,	#0x1F4	; *(int *)(0x40028000+0x05C)=0x1F4;
 									STR	R0,	[R6]
 
-									;Control PWM : active PWM Generator 0 (p1167): Enable+up/down + Enable counter debug mod
+									;Control PWM : activate PWM Generator 0 (p1167): Enable+up/down + Enable counter debug mod
 									LDR	R6, =PWM1CTL
 									LDR	R0, [R6]	;*(int *) (0x40028000+0x40)= *(int *)(0x40028000+0x40) | 0x07;
 									ORR	R0,	R0,	#0x07
 									STR	R0,	[R6]
 
-									;;-----Fin config des PWMs
+									;;-----End config of PWMs
 
 									;PORT D OUTPUT pin0 (pwm)=pin1(direction)=pin2(slow decay)=pin5(12v enable)
 									LDR	R6, =GPIODIR_D
 									LDR	R0, [R6]
 									ORR	R0,	#(GPIO_0+GPIO_1+GPIO_2+GPIO_5)
 									STR	R0,[R6]
-									;Port D, 2mA les meme
+									;Port D, 2mA same
 									LDR	R6, =GPIODR2R_D ;
 									LDR	R0, [R6]
 									ORR	R0,	#(GPIO_0+GPIO_1+GPIO_2+GPIO_5)
@@ -244,16 +237,16 @@ __ENGINE_INIT
 									LDR	R0, [R6]
 									ORR	R0,	#(GPIO_0+GPIO_1+GPIO_2+GPIO_5)
 									STR	R0,[R6]
-									;Port D : mise à 1 de slow Decay et 12V et mise � 0 pour dir et pwm
+									;Port D : set to 1 the slow Decay and 12V et set 0 for dir and pwm
 									LDR	R6, =(GPIODATA_D+((GPIO_0+GPIO_1+GPIO_2+GPIO_5)<<2))
 									MOV	R0, #(GPIO_2+GPIO_5) ; #0x24
 									STR	R0,[R6]
 
-									;MOT2, PH1 pour sens ENGINE ouput
+									;MOT2, PH1 for direction ENGINE ouput
 									LDR	R6, =GPIODIR_H
 									MOV	R0,	#0x03	;
 									STR	R0,[R6]
-									;Port H, 2mA les meme
+									;Port H, 2mA same
 									LDR	R6, =GPIODR2R_H
 									MOV R0, #0x03
 									STR	R0,[R6]
@@ -261,17 +254,17 @@ __ENGINE_INIT
 									LDR	R6, =GPIODEN_H
 									MOV R0, #0x03
 									STR	R0,[R6]
-									;Port H : mise à 1 pour dir
+									;Port H : set to 1 for dir
 									LDR	R6, =(GPIODATA_H +(GPIO_1<<2))
 									MOV	R0, #0x02
 									STR	R0,[R6]
 
-									BX	LR	; FIN du sous programme d'init.
+									BX	LR	; END init program
 
-;Enable PWM0 (bit 0) et PWM2 (bit 2) p1145
-;Warning here it's output PWM0 et PWM2 we controling, npt les blocks PWM0 et PWM1!!!
+;Enable PWM0 (bit 0) and PWM2 (bit 2) p1145
+;Warning here it's output PWM0 and PWM2 we controling, npt the blocks PWM0 and PWM1!!!
 __ENGINE_RIGHT_ON
-									;Enable sortie PWM0 (bit 0), p1145
+									;Enable output PWM0 (bit 0), p1145
 									LDR	R6,	=PWMENABLE
 									LDR R0, [R6]
 									ORR R0,	#0x01 ;bit 0 = 1

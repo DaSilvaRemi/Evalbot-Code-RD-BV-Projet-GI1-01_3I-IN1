@@ -51,7 +51,7 @@ TEMPS_Y EQU 0x469268
 									;----------------------TOOLS-----------------;
 									IMPORT __WAIT ;WAIT A DEFAULT TIME
 									IMPORT __WAIT_HALF_ROTATION ; WAIT HAL ROTATION OF EVALBOT
-									IMPORT __WAIT_A_TIME WAIT A TIME SET IN PARAM
+									IMPORT __WAIT_A_TIME ; WAIT A TIME SET IN PARAM
 
 ;----------------------------------------START MAIN------------------------------------------------;
 
@@ -156,9 +156,15 @@ __TURN_90_LEFT
 
 ;----------------------------------------START WHILE IS NOT END WALL------------------------------------------------;
 
+;;;
+;;SAVE 1 or 0 while evalbot doesn't bump END wall
+;;
+;;@returns BINARY MSG LOAD IN R7
+;;;
 __WHILE_IS_NOT_END_WALL
 									PUSH { R0-R6, R8-R10, LR }
 init_startup_while_var
+									;INIT REGISTER
 									BL __INIT_AFTER_SW2
 									LDR R4, =0
 									LDR R5, =2_00000001
@@ -166,32 +172,37 @@ init_startup_while_var
 start_while_is_not_end_wall
 
 									BL __ENGINE_LEFT_RIGHT_BACK
-
+									;GO BACK AFTER HIT OR NOT A WALL
 wait_to_be_outside_range_Y_DOWN
-									MOV R1, R3
-									BL __WAIT_A_TIME
+									MOV R1, R3 ;LOAD Y WAIT TIME IN WAIT PARAMETER
+									BL __WAIT_A_TIME ;WAIT THE SET TIME
 									
 move_to_the_right
 									BL __TURN_90_RIGHT
-									BL __ENGINE_LEFT_RIGHT_FRONT
+									BL __ENGINE_LEFT_RIGHT_FRONT ;GO to the front
 
 wait_to_be_outside_range_X
-									MOV R1, R2
+									MOV R1, R2 ;LOAD X WAIT TIME IN WAIT PARAMETER
 									BL __WAIT_A_TIME
+
+									;Check if evablot was bumped the evalbot during he runs in x Axes
 end_wall_is_bumped
 									BL __READ_STATE_BUMPER_1
 									BEQ end_while_is_not_end_wall
 
 									BL __READ_STATE_BUMPER_2
 									BEQ end_while_is_not_end_wall
+									
+									;If evalvot doesn't bump wall we turn to the left and continue searching wall
 move_to_the_up
-									BL __TURN_90_LEFT
-									BL __ENGINE_LEFT_RIGHT_FRONT
+									BL __TURN_90_LEFT 
+									BL __ENGINE_LEFT_RIGHT_FRONT 
 
 wait_to_be_outside_range_Y_UP
-									MOV R1, R3
-									BL __WAIT_A_TIME
+									MOV R1, R3 ;LOAD Y WAIT TIME IN WAIT PARAMETER
+									BL __WAIT_A_TIME ;WAIT THE SET TIME
 
+									;Check if evalbot bump binary wall
 basic_wall_is_bumped
 									BL __READ_STATE_BUMPER_1
 									BEQ save_1_binary
@@ -201,10 +212,11 @@ basic_wall_is_bumped
 									B shift_binary_mask
 
 save_1_binary
-									ORR  R7, R5, R7
+									;If evalbot bump a wall we save 1 Else 0 by default
+									ORR  R7, R5, R7 ;Set the 1 binary in message register with mask example 0001 0111 | 0010 0000 = 0011 0111
 
 shift_binary_mask
-									LSL  R5, #1
+									LSL  R5, #1 ; Shift the mask to set the the bit at good position example 0000 0001 << 1 = 0000 0010
 									B start_while_is_not_end_wall
 
 end_while_is_not_end_wall
@@ -217,39 +229,37 @@ end_while_is_not_end_wall
 __DISPLAY_BINARY_MSG
 									PUSH { R0-R4, R6, R7, LR }
 									
+									;Before start we  blink the led to inform user we start display msg
 									LDR R3, =0
-									BL __WAIT
-									BL __SWITCH_ON_LED_1_2
-									BL __WAIT
-									BL __WAIT
-									BL __SWITCH_OFF_LED_1_2
-									BL __WAIT
+									BL __BLINK_LED_1_2
+
+									;;Display the binary msg with LED
 start_while_binary_msg
-									CMP R3, #8
+									CMP R3, #8 ;If we display a byte we stop the display
 									BEQ end_while_binary_msg
 
-									AND R2, R7, #2_00000001
+									AND R2, R7, #2_00000001 ;We do and AND operation with a mask and the value of msg
 
-									CMP R2, #1
+									CMP R2, #1 ;If R7 value & 00000001 = 1 it's a wall so we display 1 with a LED
 									BEQ display_1
 
-									CMP R2, #0
+									CMP R2, #0 ;If R7 value & 00000001 = 0 it's not a wall so we display 0 with a LED
 									BEQ display_0
 
 display_1
-									BL __SWITCH_ON_LED_2
+									BL __SWITCH_ON_LED_2 ;Display a 1
 									B end_display
 		
 display_0		
-									BL __SWITCH_ON_LED_1
+									BL __SWITCH_ON_LED_1 ;Display a 0
 end_display
-									BL __WAIT
-									BL __SWITCH_OFF_LED_1_2
+									BL __WAIT ;WAIT USER READING TIME
+									BL __SWITCH_OFF_LED_1_2 ; SWITCH OFF 2 LED
 
-									ADD R3, #1
-									LSR R7, #1
-									BL __WAIT
-									B start_while_binary_msg
+									ADD R3, #1 ;ADD THE CPT TO KNOW WHAT BIT WE NEED TO DISPLAY
+									LSR R7, #1 ;Logical Shit Right in the message to display from the LSB to HSB
+									BL __WAIT ;WAIT
+									B start_while_binary_msg ;Continue display while it's not 8
 end_while_binary_msg
 
 									POP { R0-R4, R6, R7, PC }

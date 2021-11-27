@@ -167,12 +167,12 @@ __SWITCH_OFF_LED_1_2
 __BLINK_LED_1_2
 								;SWITCH ON OFF LED - WAIT - SWITCH ON LED - WAIT - SWITCH OFF LED
 								PUSH {R1, R2, R4, LR}
-								BL __SWITCH_ON_LED_1_2 
-								BL __SWITCH_OFF_LED_1_2
 								BL __WAIT
 								BL __SWITCH_ON_LED_1_2
 								BL __WAIT
+								BL __WAIT
 								BL __SWITCH_OFF_LED_1_2
+								BL __WAIT
 								POP {R1, R2, R4, PC}
 
 								END

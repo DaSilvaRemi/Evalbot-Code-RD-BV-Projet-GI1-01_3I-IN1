@@ -403,14 +403,14 @@
               <FilePath>.\RD_BV_CONFIG_BUMPER.s</FilePath>
             </File>
             <File>
-              <FileName>RD_BV_CONFIG_MOTEUR.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\RD_BV_CONFIG_MOTEUR.s</FilePath>
-            </File>
-            <File>
               <FileName>RD_BV_WAIT.S</FileName>
               <FileType>2</FileType>
               <FilePath>.\RD_BV_WAIT.S</FilePath>
+            </File>
+            <File>
+              <FileName>RD_BV_CONFIG_ENGINE.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\RD_BV_CONFIG_ENGINE.s</FilePath>
             </File>
           </Files>
         </Group>

@@ -267,8 +267,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RD_BV_CONFIG_MOTEUR.s</PathWithFileName>
-      <FilenameWithoutPath>RD_BV_CONFIG_MOTEUR.s</FilenameWithoutPath>
+      <PathWithFileName>.\RD_BV_WAIT.S</PathWithFileName>
+      <FilenameWithoutPath>RD_BV_WAIT.S</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -279,8 +279,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\RD_BV_WAIT.S</PathWithFileName>
-      <FilenameWithoutPath>RD_BV_WAIT.S</FilenameWithoutPath>
+      <PathWithFileName>.\RD_BV_CONFIG_ENGINE.s</PathWithFileName>
+      <FilenameWithoutPath>RD_BV_CONFIG_ENGINE.s</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

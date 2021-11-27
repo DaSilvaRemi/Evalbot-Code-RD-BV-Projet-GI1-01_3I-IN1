@@ -245,6 +245,7 @@ start_while_binary_msg
 
 									CMP R2, #0 ;If R7 value & 00000001 = 0 it's not a wall so we display 0 with a LED
 									BEQ display_0
+									B end_display
 
 display_1
 									BL __SWITCH_ON_LED_2 ;Display a 1

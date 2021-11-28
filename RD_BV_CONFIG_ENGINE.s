@@ -2,7 +2,7 @@
 ; Control 2 ENGINES of Evalbot by PWM all in ASM (configure the pwms + GPIO)
 ;Code are based of code of Mr Kachouri Rostrom
 
-;Cablage :
+;Connection :
 ;pin 10/PD0/PWM0 => input PWM bridge in H DRV8801RT
 ;pin 11/PD1/PWM1 => input Phase_R  bridge in H DRV8801RT
 ;pin 12/PD2		 => input SlowDecay common of 2 bridge in H

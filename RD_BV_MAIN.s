@@ -166,7 +166,6 @@ __WHILE_IS_NOT_END_WALL
 init_startup_while_var
 									;INIT REGISTER
 									BL __INIT_AFTER_SW2
-									LDR R4, =0
 									LDR R5, =2_00000001
 
 start_while_is_not_end_wall

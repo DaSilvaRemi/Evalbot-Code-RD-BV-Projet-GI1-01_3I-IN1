@@ -100,16 +100,16 @@ sw1
 __INIT_START
 									PUSH { R0, R6, R10-R12, LR }
 
-									//CONFIG ENGINE AND SW
+									;;CONFIG ENGINE AND SW
 									BL __ENGINE_INIT
 									BL __CONFIG_SW
 									
-									//WAIT SW2 TO BE PRESSED
+									;;WAIT SW2 TO BE PRESSED
 sw2
 									BL __READ_STATE_SW_2
 									BNE sw2
 
-									//TURN ON ENGINE
+									;;TURN ON ENGINE
 									BL __ENGINE_LEFT_RIGHT_ON
 									BL __ENGINE_LEFT_RIGHT_FRONT
 

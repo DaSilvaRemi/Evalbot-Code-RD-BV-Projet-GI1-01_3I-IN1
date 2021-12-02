@@ -50,7 +50,7 @@ SHUTDOWN_MASK_LED_1_2	EQU 0xCF ;Mask to shutdown LED 2 (0b11001111)
 ;;Config the clock and GPIO for the LED
 ;;;
 __CONFIG_LED
-								;; Enable the Port F & E peripheral clock 		(p291 datasheet in lm3s9B96.pdf)
+								;; Enable the Port F peripheral clock 		(p291 datasheet in lm3s9B96.pdf)
 								LDR R6, = SYSCTL_PERIPH_GPIO  			;; RCGC2
 								LDR R0, [R6]
 								ORR R0, R0, #0x00000020  				;; Enable clock on GPIO F (0x20 == 0b0010 0000) where LED were connected on (0x30 == 0b0011 0000)

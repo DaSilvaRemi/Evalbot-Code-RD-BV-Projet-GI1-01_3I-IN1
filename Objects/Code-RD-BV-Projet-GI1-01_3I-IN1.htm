@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Code-RD-BV-Projet-GI1-01_3I-IN1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Code-RD-BV-Projet-GI1-01_3I-IN1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Nov 24 18:53:47 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Thu Dec 02 09:31:18 2021
 <BR><P>
 <H3>Maximum Stack Usage =          0 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -15,24 +15,24 @@ Functions with no stack information
  <LI><a href="#[1a]">__CONFIG_BUMPER</a>
  <LI><a href="#[26]">__READ_STATE_BUMPER_1</a>
  <LI><a href="#[27]">__READ_STATE_BUMPER_2</a>
- <LI><a href="#[1b]">__ENGINE_INIT</a>
- <LI><a href="#[28]">__ENGINE_RIGHT_ON</a>
- <LI><a href="#[29]">__ENGINE_RIGHT_OFF</a>
- <LI><a href="#[2a]">__ENGINE_LEFT_ON</a>
- <LI><a href="#[2b]">__ENGINE_LEFT_OFF</a>
- <LI><a href="#[2c]">__ENGINE_LEFT_RIGHT_ON</a>
- <LI><a href="#[2d]">__ENGINE_LEFT_RIGHT_OFF</a>
- <LI><a href="#[2e]">__ENGINE_RIGHT_BACK</a>
- <LI><a href="#[2f]">__ENGINE_RIGHT_FRONT</a>
- <LI><a href="#[30]">__ENGINE_LEFT_BACK</a>
- <LI><a href="#[31]">__ENGINE_LEFT_FRONT</a>
- <LI><a href="#[32]">__ENGINE_RIGHT_INVERSE</a>
- <LI><a href="#[33]">__ENGINE_LEFT_INVERSE</a>
- <LI><a href="#[34]">__ENGINE_LEFT_RIGHT_FRONT</a>
- <LI><a href="#[35]">__ENGINE_LEFT_RIGHT_BACK</a>
- <LI><a href="#[36]">__ENGINE_LEFT_FRONT_RIGHT_BACK</a>
- <LI><a href="#[37]">__ENGINE_LEFT_BACK_RIGHT_FRONT</a>
- <LI><a href="#[38]">__ENGINE_LEFT_RIGHT_INVERSE</a>
+ <LI><a href="#[1c]">__ENGINE_INIT</a>
+ <LI><a href="#[2a]">__ENGINE_RIGHT_ON</a>
+ <LI><a href="#[2b]">__ENGINE_RIGHT_OFF</a>
+ <LI><a href="#[2c]">__ENGINE_LEFT_ON</a>
+ <LI><a href="#[2d]">__ENGINE_LEFT_OFF</a>
+ <LI><a href="#[2e]">__ENGINE_LEFT_RIGHT_ON</a>
+ <LI><a href="#[2f]">__ENGINE_LEFT_RIGHT_OFF</a>
+ <LI><a href="#[30]">__ENGINE_RIGHT_BACK</a>
+ <LI><a href="#[31]">__ENGINE_RIGHT_FRONT</a>
+ <LI><a href="#[32]">__ENGINE_LEFT_BACK</a>
+ <LI><a href="#[33]">__ENGINE_LEFT_FRONT</a>
+ <LI><a href="#[34]">__ENGINE_RIGHT_INVERSE</a>
+ <LI><a href="#[35]">__ENGINE_LEFT_INVERSE</a>
+ <LI><a href="#[36]">__ENGINE_LEFT_RIGHT_FRONT</a>
+ <LI><a href="#[37]">__ENGINE_LEFT_RIGHT_BACK</a>
+ <LI><a href="#[38]">__ENGINE_LEFT_FRONT_RIGHT_BACK</a>
+ <LI><a href="#[39]">__ENGINE_LEFT_BACK_RIGHT_FRONT</a>
+ <LI><a href="#[3a]">__ENGINE_LEFT_RIGHT_INVERSE</a>
  <LI><a href="#[17]">__CONFIG_LED</a>
  <LI><a href="#[1d]">__SWITCH_ON_LED_1</a>
  <LI><a href="#[1e]">__SWITCH_ON_LED_2</a>
@@ -45,15 +45,15 @@ Functions with no stack information
  <LI><a href="#[24]">__READ_STATE_SW_1</a>
  <LI><a href="#[25]">__READ_STATE_SW_2</a>
  <LI><a href="#[19]">__main</a>
- <LI><a href="#[1c]">__WAIT</a>
- <LI><a href="#[39]">__WAIT_HALF_ROTATION</a>
- <LI><a href="#[3a]">__WAIT_A_TIME</a>
+ <LI><a href="#[1b]">__WAIT</a>
+ <LI><a href="#[28]">__WAIT_HALF_ROTATION</a>
+ <LI><a href="#[29]">__WAIT_A_TIME</a>
 </UL>
 </UL>
 <P>
 <H3>
 Mutually Recursive functions
-</H3> <LI><a href="#[3a]">__WAIT_A_TIME</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3a]">__WAIT_A_TIME</a><BR>
+</H3> <LI><a href="#[29]">__WAIT_A_TIME</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[29]">__WAIT_A_TIME</a><BR>
  <LI><a href="#[1]">NMI_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1]">NMI_Handler</a><BR>
  <LI><a href="#[2]">HardFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">HardFault_Handler</a><BR>
  <LI><a href="#[3]">MemManage_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3]">MemManage_Handler</a><BR>
@@ -258,99 +258,99 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[1b]"></a>__ENGINE_INIT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
+<P><STRONG><a name="[1c]"></a>__ENGINE_INIT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
 <BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[28]"></a>__ENGINE_RIGHT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
+<P><STRONG><a name="[2a]"></a>__ENGINE_RIGHT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
 </UL>
 
-<P><STRONG><a name="[29]"></a>__ENGINE_RIGHT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
+<P><STRONG><a name="[2b]"></a>__ENGINE_RIGHT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
 </UL>
 
-<P><STRONG><a name="[2a]"></a>__ENGINE_LEFT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
+<P><STRONG><a name="[2c]"></a>__ENGINE_LEFT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
 </UL>
 
-<P><STRONG><a name="[2b]"></a>__ENGINE_LEFT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
+<P><STRONG><a name="[2d]"></a>__ENGINE_LEFT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
 </UL>
 
-<P><STRONG><a name="[2c]"></a>__ENGINE_LEFT_RIGHT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_ON
-<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_ON
+<P><STRONG><a name="[2e]"></a>__ENGINE_LEFT_RIGHT_ON</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_ON
+<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_ON
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[2d]"></a>__ENGINE_LEFT_RIGHT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_OFF
-<LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_OFF
+<P><STRONG><a name="[2f]"></a>__ENGINE_LEFT_RIGHT_OFF</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_OFF
+<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_OFF
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[2e]"></a>__ENGINE_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
-<LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
+<P><STRONG><a name="[30]"></a>__ENGINE_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
+<LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
 </UL>
 
-<P><STRONG><a name="[2f]"></a>__ENGINE_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
-<LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
+<P><STRONG><a name="[31]"></a>__ENGINE_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
+<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
 </UL>
 
-<P><STRONG><a name="[30]"></a>__ENGINE_LEFT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
-<LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
+<P><STRONG><a name="[32]"></a>__ENGINE_LEFT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
+<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
 </UL>
 
-<P><STRONG><a name="[31]"></a>__ENGINE_LEFT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
-<LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
+<P><STRONG><a name="[33]"></a>__ENGINE_LEFT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
+<LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
 </UL>
 
-<P><STRONG><a name="[32]"></a>__ENGINE_RIGHT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_), UNUSED, KEPT)
-<BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_INVERSE
+<P><STRONG><a name="[34]"></a>__ENGINE_RIGHT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_INVERSE
 </UL>
 
-<P><STRONG><a name="[33]"></a>__ENGINE_LEFT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_), UNUSED, KEPT)
-<BR><BR>[Called By]<UL><LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_INVERSE
+<P><STRONG><a name="[35]"></a>__ENGINE_LEFT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_INVERSE
 </UL>
 
-<P><STRONG><a name="[34]"></a>__ENGINE_LEFT_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_FRONT
-<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT
+<P><STRONG><a name="[36]"></a>__ENGINE_LEFT_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_FRONT
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[35]"></a>__ENGINE_LEFT_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_BACK
-<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK
+<P><STRONG><a name="[37]"></a>__ENGINE_LEFT_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_BACK
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[36]"></a>__ENGINE_LEFT_FRONT_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_BACK
-<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT
+<P><STRONG><a name="[38]"></a>__ENGINE_LEFT_FRONT_RIGHT_BACK</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_BACK
+<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[37]"></a>__ENGINE_LEFT_BACK_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_))
-<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_FRONT
-<LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK
+<P><STRONG><a name="[39]"></a>__ENGINE_LEFT_BACK_RIGHT_FRONT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_))
+<BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_FRONT
+<LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[38]"></a>__ENGINE_LEFT_RIGHT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_moteur.o(_CONFIG_ENGINE_), UNUSED, KEPT)
-<BR><BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_INVERSE
-<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_INVERSE
+<P><STRONG><a name="[3a]"></a>__ENGINE_LEFT_RIGHT_INVERSE</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_engine.o(_CONFIG_ENGINE_), UNUSED, KEPT)
+<BR><BR>[Calls]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_RIGHT_INVERSE
+<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_INVERSE
 </UL>
 
 <P><STRONG><a name="[17]"></a>__CONFIG_LED</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_))
@@ -366,8 +366,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1f]"></a>__SWITCH_ON_LED_1_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_))
-<BR><BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
-<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
+<BR><BR>[Called By]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
 </UL>
 
 <P><STRONG><a name="[20]"></a>__SWITCH_OFF_LED_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_), UNUSED, KEPT)
@@ -379,10 +378,12 @@ Global Symbols
 <LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
 </UL>
 
-<P><STRONG><a name="[23]"></a>__BLINK_LED_1_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_), UNUSED, KEPT)
-<BR><BR>[Calls]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
+<P><STRONG><a name="[23]"></a>__BLINK_LED_1_2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_led.o(_CONFIG_LED_))
+<BR><BR>[Calls]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_OFF_LED_1_2
 <LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_1_2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
 <P><STRONG><a name="[18]"></a>__CONFIG_SW</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_config_switch.o(_CONFIG_SWITCH_))
@@ -398,49 +399,49 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[19]"></a>__main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_main.o(_MAIN_PROGRAM_))
-<BR><BR>[Calls]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_HALF_ROTATION
-<LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_HALF_ROTATION
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
 <LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__READ_STATE_BUMPER_2
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__READ_STATE_BUMPER_1
-<LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
-<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
-<LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
-<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
-<LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
-<LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
-<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_INIT
+<LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_ON
+<LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_OFF
+<LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_FRONT
+<LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_RIGHT_BACK
+<LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_FRONT_RIGHT_BACK
+<LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_LEFT_BACK_RIGHT_FRONT
+<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ENGINE_INIT
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__CONFIG_BUMPER
 <LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__READ_STATE_SW_2
 <LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__READ_STATE_SW_1
 <LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__CONFIG_SW
-<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
+<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_OFF_LED_1_2
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_1_2
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_2
 <LI><a href="#[1d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__SWITCH_ON_LED_1
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__CONFIG_LED
 </UL>
 
-<P><STRONG><a name="[1c]"></a>__WAIT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
-<BR><BR>[Calls]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
+<P><STRONG><a name="[1b]"></a>__WAIT</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
+<BR><BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 <LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__BLINK_LED_1_2
 </UL>
 
-<P><STRONG><a name="[39]"></a>__WAIT_HALF_ROTATION</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
-<BR><BR>[Calls]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
+<P><STRONG><a name="[28]"></a>__WAIT_HALF_ROTATION</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
+<BR><BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
 </UL>
 <BR>[Called By]<UL><LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[3a]"></a>__WAIT_A_TIME</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
-<BR><BR>[Calls]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
+<P><STRONG><a name="[29]"></a>__WAIT_A_TIME</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rd_bv_wait.o(_WAIT_))
+<BR><BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
 </UL>
-<BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_HALF_ROTATION
-<LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
+<BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_HALF_ROTATION
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT_A_TIME
 <LI><a href="#[19]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
-<LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
+<LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__WAIT
 </UL>
 
 <P><STRONG><a name="[14]"></a>SystemInit</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, system_armcm3.o(i.SystemInit))

@@ -94,7 +94,7 @@ __ENGINE_INIT
 									;CONFIGURE CLOCK RCGC0
 									LDR R6, = SYSCTL_RCGC0
 									LDR	R0, [R6]
-									ORR	R0, R0, #0x00100000  ;;bit 20 = PWM recoit clock: ON (p271)
+									ORR	R0, R0, #0x00100000  ;;bit 20 = PWM receive clock: ON (p271)
 									STR R0, [R6]
 
 									;ROM_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);PWM clock is processor clock /1

@@ -208,8 +208,8 @@ ARM Macro Assembler    Page 4
    95 00000000 4E71            LDR              R6, = SYSCTL_RCGC0
    96 00000002 6830            LDR              R0, [R6]
    97 00000004 F440 1080       ORR              R0, R0, #0x00100000 ;;bit 20 = 
-                                                            PWM recoit clock: O
-                                                            N (p271)
+                                                            PWM receive clock: 
+                                                            ON (p271)
    98 00000008 6030            STR              R0, [R6]
    99 0000000A         
   100 0000000A         ;ROM_SysCtlPWMClockSet(SYSCTL_PWMDIV_1);PWM clock is pro
